@@ -125,19 +125,31 @@ npm start
 
 ---
 
-## 5. Deployment Guide (Free Hosting: Render)
+## 5. Deployment Guide (Free Hosting: Vercel & Render)
 
-To deploy the app to **Render** for free testing:
+### A. Deploy to Vercel (Serverless - Recommended)
 
-1. **Connect GitHub**: Connect your repository `Ariel00s/quizzysun-kids-trivia` to Render as a **Web Service**.
+To deploy the app on Vercel as a unified frontend and serverless API project:
+
+1. **Connect GitHub**: Import the repository `Ariel00s/quizzysun-kids-trivia` into your [Vercel Dashboard](https://vercel.com/new).
+2. **Settings**: Vercel automatically detects the Vite configuration and sets the build command and output directory (`dist`).
+3. **Environment Variables**:
+   * Add `GEMINI_API_KEY` = `your-gemini-api-key` in the Project Settings under the **Environment Variables** tab.
+4. **Deploy**: Vercel will build the frontend statically and serve the Express backend endpoints under Vercel's serverless function runtime (`api/index.ts`).
+
+### B. Deploy to Render (Node Web Service)
+
+To deploy the app to **Render** as a standard Express/Vite service:
+
+1. **Connect GitHub**: Connect your repository to Render as a **Web Service**.
 2. **Configure Settings**:
    * **Runtime**: `Node`
    * **Build Command**: `npm install --legacy-peer-deps && npm run build`
    * **Start Command**: `npm start`
 3. **Environment Variables**:
-   * Add `GEMINI_API_KEY` under the **Environment** tab in Render dashboard.
+   * Add `GEMINI_API_KEY` = `your-gemini-api-key`
    * Add `NODE_ENV` = `production`
-4. **Deploy**: Render will automatically build the React assets, bundle the Express server, and serve it. Note that Render's free tier spins down after 15 minutes of inactivity.
+4. **Deploy**: Note that Render's free tier spins down after 15 minutes of inactivity.
 
 ---
 
