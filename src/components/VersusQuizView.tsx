@@ -144,7 +144,7 @@ export default function VersusQuizView({
 
   // Narrate current question & options
   const narrateQuestion = () => {
-    if (!soundOn || !currentQuestion) return;
+    if (!soundOn || !currentQuestion || shuffledIndices.length === 0) return;
     try {
       window.speechSynthesis.cancel();
       const isHe = lang === 'he';
@@ -152,7 +152,8 @@ export default function VersusQuizView({
       const options = isHe ? currentQuestion.optionsHe : currentQuestion.optionsEn;
 
       let textToSpeak = questionText + ". ";
-      options.forEach((opt, idx) => {
+      shuffledIndices.forEach((originalIdx, idx) => {
+        const opt = options[originalIdx];
         textToSpeak += `${idx + 1}. ${opt}. `;
       });
 
@@ -183,15 +184,15 @@ export default function VersusQuizView({
     } catch (e) {}
   };
 
-  // Automatically speak when question changes & turn started
+  // Automatically speak when question changes & turn started & indices shuffled
   useEffect(() => {
-    if (turnStarted && currentQuestion && activeTurn !== 'results') {
+    if (turnStarted && currentQuestion && activeTurn !== 'results' && shuffledIndices.length > 0) {
       narrateQuestion();
     }
     return () => {
       window.speechSynthesis.cancel();
     };
-  }, [turnStarted, p1Index, p2Index, activeTurn]);
+  }, [shuffledIndices, turnStarted, activeTurn]);
 
   // Shuffle options on question changes in VersusQuizView
   useEffect(() => {

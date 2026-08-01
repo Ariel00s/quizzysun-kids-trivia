@@ -54,7 +54,7 @@ export default function QuizView({
 
   // Narrate current question & options
   const narrateQuestion = () => {
-    if (!soundOn || !currentQuestion) return;
+    if (!soundOn || !currentQuestion || shuffledIndices.length === 0) return;
     
     try {
       window.speechSynthesis.cancel(); // Stop any ongoing speech
@@ -63,9 +63,10 @@ export default function QuizView({
       const questionText = isHe ? currentQuestion.questionHe : currentQuestion.questionEn;
       const options = isHe ? currentQuestion.optionsHe : currentQuestion.optionsEn;
       
-      // Build narrated text with options: Question. 1. option 1. 2. option 2...
+      // Build narrated text with options in the shuffled order
       let textToSpeak = questionText + ". ";
-      options.forEach((opt, index) => {
+      shuffledIndices.forEach((originalIdx, index) => {
+        const opt = options[originalIdx];
         textToSpeak += `${index + 1}. ${opt}. `;
       });
       
@@ -120,10 +121,8 @@ export default function QuizView({
     }
   };
 
-  // Run narration on question change
+  // Reset local states and shuffle indices on question change
   useEffect(() => {
-    narrateQuestion();
-    // Reset local states for new question
     setSelectedAnswerIndex(null);
     setHasAnswered(false);
     setShowFeedback(null);
@@ -140,11 +139,17 @@ export default function QuizView({
       indices.sort(() => Math.random() - 0.5);
       setShuffledIndices(indices);
     }
-    
+  }, [currentIndex, currentQuestion, lang]);
+
+  // Run narration once shuffledIndices are ready
+  useEffect(() => {
+    if (shuffledIndices.length > 0) {
+      narrateQuestion();
+    }
     return () => {
       window.speechSynthesis.cancel();
     };
-  }, [currentIndex, lang, soundOn]);
+  }, [shuffledIndices, soundOn]);
 
   // Move to next question automatically with a 3-second timeout
   useEffect(() => {
