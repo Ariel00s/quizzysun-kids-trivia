@@ -1,0 +1,6 @@
+{
+  "name": "QuizzySun - Kids Trivia",
+  "description": "An interactive, educational trivia game for kids of all ages with multilingual narration, badges, and customizable profile picture capture.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
