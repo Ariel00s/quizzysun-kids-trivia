@@ -26,6 +26,7 @@ interface MainMenuProps {
   onRegisterPlayer: (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null, autoSelectAsOpponent?: boolean) => void;
   onSetActivePlayer: (playerId: string) => void;
   onChangeAvatar?: (playerId: string, newAvatar: string) => void;
+  onDeletePlayer?: (playerId: string) => void;
 }
 
 const PRESET_AVATARS = ['🦖', '🦁', '🦄', '🐼', '🐨', '🦊', '🐯', '🐸', '🚀', '⭐', '🌈', '🎨'];
@@ -200,7 +201,8 @@ export default function MainMenu({
   versusTimeLimit,
   onRegisterPlayer,
   onSetActivePlayer,
-  onChangeAvatar
+  onChangeAvatar,
+  onDeletePlayer
 }: MainMenuProps) {
   const [currentStep, setCurrentStep] = useState<'setup' | 'topics'>('setup');
   const [addingPlayer, setAddingPlayer] = useState<boolean>(false);
@@ -534,34 +536,47 @@ export default function MainMenu({
                   const isOpponent = versusEnabled && versusOpponentId === p.id;
                   
                   return (
-                    <button
-                      key={p.id}
-                      onClick={() => {
-                        if (isOpponent) {
-                          // Swap or deselect opponent to avoid duplicate
-                          onVersusOpponentChange(null);
-                        }
-                        onSetActivePlayer(p.id);
-                      }}
-                      className={`px-4 py-2 rounded-2xl border-2 font-black text-sm flex items-center gap-2 transition-all cursor-pointer ${
-                        isActive
-                          ? 'bg-[#D2E3FC] border-[#74B9FF] text-[#0984E3] shadow-sm scale-102'
-                          : isOpponent
-                          ? 'bg-rose-100 border-rose-300 text-rose-600'
-                          : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600'
-                      }`}
-                    >
-                      {p.profilePic ? (
-                        <div className="w-6 h-6 rounded-full border border-current overflow-hidden shrink-0 bg-white flex items-center justify-center">
-                          <img src={p.profilePic} alt={p.name} className="w-full h-full object-cover scale-x-[-1]" />
-                        </div>
-                      ) : (
-                        <span className="text-xl">{p.avatar}</span>
-                      )}
-                      <span>{p.name}</span>
-                      {isActive && <Check className="w-4 h-4 text-[#0984E3]" />}
-                      {isOpponent && <span className="text-[10px] bg-rose-200 text-rose-700 px-1.5 py-0.5 rounded-full font-bold">VS</span>}
-                    </button>
+                    <div key={p.id} className="relative flex items-center">
+                      <button
+                        onClick={() => {
+                          if (isOpponent) {
+                            // Swap or deselect opponent to avoid duplicate
+                            onVersusOpponentChange(null);
+                          }
+                          onSetActivePlayer(p.id);
+                        }}
+                        className={`pl-3 pr-9 py-2 rounded-2xl border-2 font-black text-sm flex items-center gap-2 transition-all cursor-pointer ${
+                          isActive
+                            ? 'bg-[#D2E3FC] border-[#74B9FF] text-[#0984E3] shadow-sm scale-102'
+                            : isOpponent
+                            ? 'bg-rose-100 border-rose-300 text-rose-600'
+                            : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600'
+                        }`}
+                      >
+                        {p.profilePic ? (
+                          <div className="w-6 h-6 rounded-full border border-current overflow-hidden shrink-0 bg-white flex items-center justify-center">
+                            <img src={p.profilePic} alt={p.name} className="w-full h-full object-cover scale-x-[-1]" />
+                          </div>
+                        ) : (
+                          <span className="text-xl">{p.avatar}</span>
+                        )}
+                        <span>{p.name}</span>
+                        {isActive && <Check className="w-4 h-4 text-[#0984E3]" />}
+                        {isOpponent && <span className="text-[10px] bg-rose-200 text-rose-700 px-1.5 py-0.5 rounded-full font-bold">VS</span>}
+                      </button>
+                      
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          onDeletePlayer?.(p.id);
+                        }}
+                        className="absolute right-2 w-5 h-5 rounded-full bg-slate-200/80 hover:bg-rose-500 hover:text-white text-slate-500 flex items-center justify-center text-[9px] font-black cursor-pointer transition-all border border-slate-300/80 hover:border-rose-600 shadow-sm"
+                        title={lang === 'en' ? 'Delete Player' : 'מחק שחקן'}
+                      >
+                        ✕
+                      </button>
+                    </div>
                   );
                 })}
 
@@ -606,11 +621,6 @@ export default function MainMenu({
                     ) : (
                       <span className="text-3xl">{activePlayer.avatar}</span>
                     )}
-
-
-                    <div className="absolute -bottom-2 -right-2 bg-white rounded-full p-1 shadow-sm border border-slate-200">
-                      <Settings className="w-3 h-3 text-slate-500" />
-                    </div>
                   </div>
 
                   <div className="flex-grow w-full">
@@ -670,7 +680,13 @@ export default function MainMenu({
 
                       {activePlayer ? (
                         <div className="bg-white border border-[#74B9FF]/20 rounded-xl p-3 flex items-center gap-3">
-                          <span className="text-3xl">{activePlayer.avatar}</span>
+                          {activePlayer.profilePic ? (
+                            <div className="w-10 h-10 rounded-full border-2 border-[#74B9FF]/20 overflow-hidden shrink-0 bg-slate-50 flex items-center justify-center">
+                              <img src={activePlayer.profilePic} alt={activePlayer.name} className="w-full h-full object-cover scale-x-[-1]" />
+                            </div>
+                          ) : (
+                            <span className="text-3xl shrink-0">{activePlayer.avatar}</span>
+                          )}
                           <div className="min-w-0 flex-grow">
                             <p className="font-black text-[#2D3436] text-sm truncate">{activePlayer.name}</p>
                             <span className="text-[9px] font-black bg-[#74B9FF]/20 text-[#0984E3] px-2 py-0.5 rounded-full">
@@ -683,8 +699,6 @@ export default function MainMenu({
                           {lang === 'en' ? 'Select a player above!' : 'בחרו שחקן מלמעלה!'}
                         </p>
                       )}
-
-
                     </div>
                   </div>
 
@@ -703,8 +717,6 @@ export default function MainMenu({
                             {lang === 'en' ? 'Clear' : 'הסר'}
                           </button>
                         )}
-
-
                       </div>
 
                       {versusOpponentId ? (
@@ -712,21 +724,25 @@ export default function MainMenu({
                           const opp = players.find(p => p.id === versusOpponentId);
                           if (!opp) return null;
                           return (
-                            <div className="bg-white border border-rose-200 rounded-xl p-3 flex items-center gap-3 animate-fade-in">
+                            <button
+                              onClick={() => onVersusOpponentChange(null)}
+                              className="w-full bg-white hover:bg-rose-50 border border-rose-200 rounded-xl p-3 flex items-center gap-3 animate-fade-in transition-all cursor-pointer text-left active:scale-98"
+                              title={lang === 'en' ? 'Click to change opponent' : 'לחצו כדי להחליף יריב'}
+                            >
                               {opp.profilePic ? (
-                            <div className="w-10 h-10 rounded-full border-2 border-rose-200 overflow-hidden shrink-0 bg-slate-50 flex items-center justify-center">
-                              <img src={opp.profilePic} alt={opp.name} className="w-full h-full object-cover scale-x-[-1]" />
-                            </div>
-                          ) : (
-                            <span className="text-3xl">{opp.avatar}</span>
-                          )}
+                                <div className="w-10 h-10 rounded-full border-2 border-rose-200 overflow-hidden shrink-0 bg-slate-50 flex items-center justify-center">
+                                  <img src={opp.profilePic} alt={opp.name} className="w-full h-full object-cover scale-x-[-1]" />
+                                </div>
+                              ) : (
+                                <span className="text-3xl shrink-0">{opp.avatar}</span>
+                              )}
                               <div className="min-w-0 flex-grow">
                                 <p className="font-black text-[#2D3436] text-sm truncate">{opp.name}</p>
                                 <span className="text-[9px] font-black bg-rose-100 text-rose-600 px-2 py-0.5 rounded-full">
                                   {opp.ageGroup === '5-7' ? '5-7' : opp.ageGroup === '8-13' ? '8-13' : '13+'}
                                 </span>
                               </div>
-                            </div>
+                            </button>
                           );
                         })()
                       ) : (
@@ -735,22 +751,27 @@ export default function MainMenu({
                             {lang === 'en' ? 'Challenger 2 not selected!' : 'מתמודד 2 לא נבחר!'}
                           </p>
                           
-                          {/* Quick challenger selection list of other players */}
-                          <div className="flex flex-wrap gap-2">
+                          {/* Full-width player selection boxes */}
+                          <div className="flex flex-col gap-2 mt-1">
                             {players.filter(p => p.id !== activePlayer?.id).map((p) => (
                               <button
                                 key={p.id}
                                 onClick={() => onVersusOpponentChange(p.id)}
-                                className="px-2.5 py-1 bg-white hover:bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 cursor-pointer flex items-center gap-1.5 transition-all"
+                                className="w-full bg-white hover:bg-[#FFEAA7]/20 border border-slate-200 hover:border-[#F1C40F] rounded-xl p-3 flex items-center gap-3 transition-all text-left cursor-pointer active:scale-98 shadow-sm"
                               >
                                 {p.profilePic ? (
-                                  <div className="w-5 h-5 rounded-full border border-current overflow-hidden shrink-0 bg-white flex items-center justify-center">
+                                  <div className="w-10 h-10 rounded-full border border-slate-200 overflow-hidden shrink-0 bg-slate-50 flex items-center justify-center">
                                     <img src={p.profilePic} alt={p.name} className="w-full h-full object-cover scale-x-[-1]" />
                                   </div>
                                 ) : (
-                                  <span>{p.avatar}</span>
+                                  <span className="text-3xl shrink-0">{p.avatar}</span>
                                 )}
-                                <span>{p.name}</span>
+                                <div className="min-w-0 flex-grow">
+                                  <p className="font-black text-[#2D3436] text-sm truncate">{p.name}</p>
+                                  <span className="text-[9px] font-black bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">
+                                    {p.ageGroup === '5-7' ? '5-7' : p.ageGroup === '8-13' ? '8-13' : '13+'}
+                                  </span>
+                                </div>
                               </button>
                             ))}
                           </div>

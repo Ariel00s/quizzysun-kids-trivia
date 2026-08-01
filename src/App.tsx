@@ -180,6 +180,26 @@ export default function App() {
     setScreen('main-menu');
   };
 
+  const handleDeletePlayer = (playerId: string) => {
+    const isHe = lang === 'he';
+    const msg = isHe 
+      ? 'האם אתם בטוחים שברצונכם למחוק שחקן זה?' 
+      : 'Are you sure you want to delete this player?';
+    if (!window.confirm(msg)) return;
+
+    const updatedPlayers = players.filter((p) => p.id !== playerId);
+    setPlayers(updatedPlayers);
+    localStorage.setItem('quizzy_sun_players', JSON.stringify(updatedPlayers));
+
+    if (activePlayerId === playerId) {
+      setActivePlayerId(null);
+      localStorage.removeItem('quizzy_sun_active_player_id');
+    }
+    if (versusOpponentId === playerId) {
+      setVersusOpponentId(null);
+    }
+  };
+
   const handleLanguageChange = (newLang: Language) => {
     setLang(newLang);
     localStorage.setItem('quizzy_sun_lang', newLang);
@@ -538,6 +558,7 @@ export default function App() {
               versusTimeLimit={versusTimeLimit}
               onRegisterPlayer={handleRegisterPlayer}
               onSetActivePlayer={handleSelectActivePlayer}
+              onDeletePlayer={handleDeletePlayer}
             />
           </motion.div>
         );
