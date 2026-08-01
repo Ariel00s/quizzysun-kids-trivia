@@ -15,6 +15,7 @@ export interface Player {
   xp: number; // Experience points
   level: number; // Player level
   answeredQuestions?: string[]; // IDs of questions answered to prevent repeats
+  gender?: 'male' | 'female';
 }
 
 export interface Question {
@@ -51,3 +52,33 @@ export interface QuizState {
   answers: { questionId: string; selectedIndex: number; isCorrect: boolean }[];
   isFinished: boolean;
 }
+
+export const getEncouragingPhrases = (lang: Language, gender: 'male' | 'female', isCorrect: boolean): string[] => {
+  const isHe = lang === 'he';
+  const isFemale = gender === 'female';
+  
+  if (isCorrect) {
+    if (isHe) {
+      return [
+        'כל הכבוד!',
+        'מצוין!',
+        'תשובה מנצחת!',
+        isFemale ? 'את פשוט אלופה!' : 'אתה פשוט אלוף!',
+        isFemale ? 'פשוט מושלמת!' : 'פשוט מושלם!',
+        'איזה יופי!'
+      ];
+    }
+    return ['Great job!', 'Awesome!', 'Perfect!', 'You are amazing!', 'Excellent!', 'Fantastic!'];
+  } else {
+    if (isHe) {
+      return [
+        'לא נורא!',
+        isFemale ? 'בפעם הבאה תצליחי!' : 'בפעם הבאה תצליח!',
+        'ניסיון יפה!',
+        isFemale ? 'את מסוגלת ליותר!' : 'אתה מסוגל ליותר!',
+        'קרוב מאוד!'
+      ];
+    }
+    return ['Nice try!', 'You can do it!', 'So close!', 'Let\'s keep going!', 'Keep trying!'];
+  }
+};

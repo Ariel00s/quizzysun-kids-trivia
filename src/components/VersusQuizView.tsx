@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Player, Question, Language } from '../types';
+import { Player, Question, Language, getEncouragingPhrases } from '../types';
 import { QUESTIONS } from '../questions';
 import { Volume2, VolumeX, AlertCircle, Shield, Trophy, Timer, ArrowRight, RotateCcw, HelpCircle } from 'lucide-react';
 import { QuestionVisual } from './QuestionVisual';
@@ -62,11 +62,6 @@ export default function VersusQuizView({
   // Sound/TTS Refs
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  const ENCOURAGING_EN = ['Awesome!', 'Outstanding!', 'Spectacular!', 'Super job!', 'Perfect!', 'You are a genius!'];
-  const ENCOURAGING_HE = ['כל הכבוד!', 'מצוין!', 'תשובה מנצחת!', 'איזה יופי!', 'פשוט מושלם!', 'ניצחון קטן!'];
-  const TRY_AGAIN_EN = ['Nice try!', 'You can do it!', 'So close!', 'Keep going!', 'Keep trying!'];
-  const TRY_AGAIN_HE = ['לא נורא!', 'בפעם הבאה תצליחו!', 'ניסיון יפה!', 'קרוב מאוד!', 'נמשיך קדימה!'];
 
   // Initialize question pools on mount
   useEffect(() => {
@@ -173,9 +168,10 @@ export default function VersusQuizView({
     try {
       window.speechSynthesis.cancel();
       const isHe = lang === 'he';
-      const phrases = isCorrect 
-        ? (isHe ? ENCOURAGING_HE : ENCOURAGING_EN) 
-        : (isHe ? TRY_AGAIN_HE : TRY_AGAIN_EN);
+      const currentPlayer = activeTurn === 1 ? player1 : player2;
+      const gender = currentPlayer.gender || 'male';
+      
+      const phrases = getEncouragingPhrases(lang, gender, isCorrect);
       const text = phrases[Math.floor(Math.random() * phrases.length)];
 
       const utterance = new SpeechSynthesisUtterance(text);

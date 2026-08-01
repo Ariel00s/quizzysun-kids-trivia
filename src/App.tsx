@@ -132,13 +132,14 @@ export default function App() {
     return players.find((p) => p.id === activePlayerId) || null;
   };
 
-  const handleRegisterPlayer = (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null, autoSelectAsOpponent: boolean = false) => {
+  const handleRegisterPlayer = (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null, gender: 'male' | 'female', autoSelectAsOpponent: boolean = false) => {
     const newPlayer: Player = {
       id: `player_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
       name,
       ageGroup,
       avatar,
       profilePic,
+      gender,
       score: 0,
       gamesPlayed: 0,
       badges: [],
@@ -164,7 +165,9 @@ export default function App() {
       try {
         const welcomeTxt = lang === 'en' 
           ? `Welcome aboard ${name}! Let's play some fun quizzes.` 
-          : `ברוך הבא ${name}! בוא נשחק בחידונים מדליקים.`;
+          : gender === 'female'
+            ? `ברוכה הבאה ${name}! בואי נשחק בחידונים מדליקים.`
+            : `ברוך הבא ${name}! בוא נשחק בחידונים מדליקים.`;
         const utterance = new SpeechSynthesisUtterance(welcomeTxt);
         utterance.lang = lang === 'he' ? 'he-IL' : 'en-US';
         window.speechSynthesis.speak(utterance);

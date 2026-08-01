@@ -4,7 +4,7 @@ import CameraCapture from './CameraCapture';
 import { User, Camera, Sparkles, Smile, ArrowRight, ArrowLeft, Settings } from 'lucide-react';
 
 interface RegisterPlayerProps {
-  onRegister: (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null) => void;
+  onRegister: (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null, gender: 'male' | 'female') => void;
   onCancel: (() => void) | null;
   lang: 'en' | 'he';
   onOpenSettings?: () => void;
@@ -18,11 +18,12 @@ export default function RegisterPlayer({ onRegister, onCancel, lang, onOpenSetti
   const [selectedAvatar, setSelectedAvatar] = useState(PRESET_AVATARS[0]);
   const [profilePic, setProfilePic] = useState<string | null>(null);
   const [useCamera, setUseCamera] = useState(false);
+  const [gender, setGender] = useState<'male' | 'female'>('male');
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
-    onRegister(name.trim(), ageGroup, selectedAvatar, profilePic);
+    onRegister(name.trim(), ageGroup, selectedAvatar, profilePic, gender);
   };
 
   return (
@@ -62,6 +63,39 @@ export default function RegisterPlayer({ onRegister, onCancel, lang, onOpenSetti
               className="w-full h-14 pl-12 pr-4 bg-surface-container rounded-full border-4 border-primary text-primary font-headline-md text-lg focus:outline-none focus:ring-0 focus:border-secondary transition-all text-center md:text-left"
             />
             <User className="absolute left-4 top-1/2 -translate-y-1/2 text-primary w-5 h-5" />
+          </div>
+        </div>
+
+        {/* Gender Selection */}
+        <div className="flex flex-col gap-1">
+          <label className="font-label-bold text-primary text-sm md:text-base">
+            {lang === 'en' ? 'Choose Gender:' : 'בחרו מגדר:'}
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => setGender('male')}
+              className={`flex items-center justify-center gap-2 py-3 rounded-xl border-4 transition-all cursor-pointer ${
+                gender === 'male'
+                  ? 'bg-secondary-container border-secondary text-on-secondary-container shadow-[0_4px_0_0_rgba(110,92,0,1)] scale-102 font-black'
+                  : 'bg-white border-primary-fixed text-on-surface-variant hover:bg-surface-bright'
+              }`}
+            >
+              <span className="text-2xl">🙋‍♂️</span>
+              <span className="font-label-bold text-xs md:text-sm">{lang === 'en' ? 'Boy (Male)' : 'בן (זכר)'}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setGender('female')}
+              className={`flex items-center justify-center gap-2 py-3 rounded-xl border-4 transition-all cursor-pointer ${
+                gender === 'female'
+                  ? 'bg-pink-100 border-pink-500 text-pink-700 shadow-[0_4px_0_0_rgba(190,24,93,1)] scale-102 font-black'
+                  : 'bg-white border-primary-fixed text-on-surface-variant hover:bg-surface-bright'
+              }`}
+            >
+              <span className="text-2xl">🙋‍♀️</span>
+              <span className="font-label-bold text-xs md:text-sm">{lang === 'en' ? 'Girl (Female)' : 'בת (נקבה)'}</span>
+            </button>
           </div>
         </div>
 

@@ -23,7 +23,7 @@ interface MainMenuProps {
   onVersusOpponentChange: (id: string | null) => void;
   versusModeStyle: 'time' | 'turn';
   versusTimeLimit: number;
-  onRegisterPlayer: (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null, autoSelectAsOpponent?: boolean) => void;
+  onRegisterPlayer: (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null, gender: 'male' | 'female', autoSelectAsOpponent?: boolean) => void;
   onSetActivePlayer: (playerId: string) => void;
   onChangeAvatar?: (playerId: string, newAvatar: string) => void;
   onDeletePlayer?: (playerId: string) => void;
@@ -42,7 +42,7 @@ const AVATARS_BY_LEVEL = [
 
 interface InlineAddPlayerFormProps {
   lang: 'en' | 'he';
-  onSave: (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null) => void;
+  onSave: (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null, gender: 'male' | 'female') => void;
   onCancel: () => void;
 }
 
@@ -52,11 +52,12 @@ function InlineAddPlayerForm({ lang, onSave, onCancel }: InlineAddPlayerFormProp
   const [selectedAvatar, setSelectedAvatar] = useState(PRESET_AVATARS[0]);
   const [profilePic, setProfilePic] = useState<string | null>(null);
   const [useCamera, setUseCamera] = useState(false);
+  const [gender, setGender] = useState<'male' | 'female'>('male');
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
-    onSave(name.trim(), ageGroup, selectedAvatar, profilePic);
+    onSave(name.trim(), ageGroup, selectedAvatar, profilePic, gender);
   };
 
   return (
@@ -89,6 +90,39 @@ function InlineAddPlayerForm({ lang, onSave, onCancel }: InlineAddPlayerFormProp
           placeholder={lang === 'en' ? 'Type nickname...' : 'הקלד כינוי...'}
           className="w-full p-2.5 bg-white border-2 border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:border-[#74B9FF] transition-all"
         />
+      </div>
+
+      {/* Gender Selection */}
+      <div className="flex flex-col gap-1">
+        <label className="text-xs font-black text-slate-500 uppercase tracking-wider">
+          {lang === 'en' ? 'Gender:' : 'מגדר:'}
+        </label>
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => setGender('male')}
+            className={`flex items-center justify-center gap-2 py-2 rounded-xl border-2 text-xs font-bold transition-all cursor-pointer ${
+              gender === 'male'
+                ? 'bg-[#D2E3FC] border-[#74B9FF] text-[#0984E3] font-black'
+                : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'
+            }`}
+          >
+            <span className="text-lg">🙋‍♂️</span>
+            <span>{lang === 'en' ? 'Boy' : 'בן'}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setGender('female')}
+            className={`flex items-center justify-center gap-2 py-2 rounded-xl border-2 text-xs font-bold transition-all cursor-pointer ${
+              gender === 'female'
+                ? 'bg-pink-100 border-pink-300 text-pink-600 font-black'
+                : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'
+            }`}
+          >
+            <span className="text-lg">🙋‍♀️</span>
+            <span>{lang === 'en' ? 'Girl' : 'בת'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Age Group Selector */}
@@ -264,8 +298,8 @@ export default function MainMenu({
     onChangeAgeGroup(player.id, next);
   };
 
-  const handleSaveInlinePlayer = (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null) => {
-    onRegisterPlayer(name, ageGroup, avatar, profilePic, false);
+  const handleSaveInlinePlayer = (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null, gender: 'male' | 'female') => {
+    onRegisterPlayer(name, ageGroup, avatar, profilePic, gender, false);
     setAddingPlayer(false);
   };
 

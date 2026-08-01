@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Question, Player, Language } from '../types';
+import { Question, Player, Language, getEncouragingPhrases } from '../types';
 import { Volume2, VolumeX, AlertCircle, HelpCircle, Star, ArrowRight, Smile, Sparkles, RefreshCw, Globe } from 'lucide-react';
 import { QuestionVisual } from './QuestionVisual';
 import { motion, AnimatePresence } from 'motion/react';
@@ -45,13 +45,6 @@ export default function QuizView({
   // Sound effects & speech synthesis refs
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
 
-  // Encouraging feedback phrases
-  const ENCOURAGING_EN = ['Awesome!', 'Outstanding!', 'Spectacular!', 'Super job!', 'Perfect!', 'You are a genius!'];
-  const ENCOURAGING_HE = ['כל הכבוד!', 'מצוין!', 'תשובה מנצחת!', 'אתה פשוט אלוף!', 'פשוט מושלם!', 'איזה יופי!'];
-
-  const TRY_AGAIN_EN = ['Nice try!', 'You can do it!', 'So close!', 'Let\'s keep going!', 'Keep trying!'];
-  const TRY_AGAIN_HE = ['לא נורא!', 'בפעם הבאה תצליחו!', 'ניסיון יפה!', 'אתם מסוגלים ליותר!', 'קרוב מאוד!'];
-
   // Narrate current question & options
   const narrateQuestion = () => {
     if (!soundOn || !currentQuestion || shuffledIndices.length === 0) return;
@@ -95,15 +88,10 @@ export default function QuizView({
     try {
       window.speechSynthesis.cancel();
       const isHe = lang === 'he';
+      const gender = activePlayer.gender || 'male';
       
-      let phrase = '';
-      if (isCorrect) {
-        const phrases = isHe ? ENCOURAGING_HE : ENCOURAGING_EN;
-        phrase = phrases[Math.floor(Math.random() * phrases.length)];
-      } else {
-        const phrases = isHe ? TRY_AGAIN_HE : TRY_AGAIN_EN;
-        phrase = phrases[Math.floor(Math.random() * phrases.length)];
-      }
+      const phrases = getEncouragingPhrases(lang, gender, isCorrect);
+      const phrase = phrases[Math.floor(Math.random() * phrases.length)];
 
       const utterance = new SpeechSynthesisUtterance(phrase);
       utterance.lang = isHe ? 'he-IL' : 'en-US';
