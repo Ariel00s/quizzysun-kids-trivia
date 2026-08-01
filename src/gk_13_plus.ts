@@ -918,5 +918,31 @@ export const GK_13_PLUS_QUESTIONS: Question[] = [
     explanationEn: 'This sign warns drivers that there is an uncontrolled railway crossing ahead without automatic barriers.',
     explanationHe: 'תמרור זה מזהיר מפני מפגש מסילת ברזל (פסי רכבת) ללא מחסום, ומורה לנהגים להאט ולהסתכל היטב.',
     visualType: 'train-crossing-sign'
+  },
+  {
+    id: 'gk-13-visual-one-way',
+    category: 'GeneralKnowledge',
+    ageGroup: '13+',
+    questionEn: 'Look at the blue rectangular sign with a white arrow pointing up. What does it mean?',
+    questionHe: 'הַבִּיטוּ בַּתַּמְרוּר הַכָּחֹל הַמַּלְבְּנִי עִם הַחֵץ הַלָּבָן הַפּוֹנֶה כְּלַפֵי מַעְלָה. מָה מַשְׁמָעוּתוֹ?',
+    optionsEn: ['One-way traffic direction', 'No entry allowed', 'Pedestrian zone only', 'Go straight only at intersection'],
+    optionsHe: ['כִּוּוּן הַתְּנוּעָה חַד-סִטְרִי', 'אֵין כְּנִיסָה לִכְלִי רֶכֶב', 'מִדְרָחוֹב לְהוֹלְכֵי רֶגֶל בִּלְבַד', 'יָשָׁר בִּלְבַד בַּצֹּמֶת הַקָּרוֹב'],
+    answerIndex: 0,
+    explanationEn: 'The One-Way traffic sign indicates that vehicles are only allowed to drive in the direction indicated by the arrow.',
+    explanationHe: 'תמרור כביש חד-סטרי מסמן לנהגים שכל כלי הרכב רשאים לנסוע אך ורק בכיוון אליו מורה החץ.',
+    visualType: 'one-way-sign'
+  },
+  {
+    id: 'gk-13-visual-speed',
+    category: 'GeneralKnowledge',
+    ageGroup: '13+',
+    questionEn: 'Look at the white circular sign with a red border containing the number 50. What is it?',
+    questionHe: 'הַבִּיטוּ בַּתַּמְרוּר הָעָגֹל הַלָּבָן עִם הַמִּסְגֶּרֶת הָאֲדֻמָּה וְהַמִּסְפָּר 50. מַהוּ?',
+    optionsEn: ['Maximum speed limit is 50 km/h', 'Minimum speed limit is 50 km/h', 'Distance to next town is 50 km', 'Maximum weight limit is 50 tons'],
+    optionsHe: ['מְהִירוּת מַרְבִּית מֻתֶּרֶת 50 קמ"ש', 'מְהִירוּת מִזְעָרִית מֻתֶּרֶת 50 קמ"ש', 'מֶרְחָק לָעִיר הַקְּרוֹבָה 50 ק"מ', 'הַגְבָּלַת מִשְׁקָל מַרְבִּי 50 טוֹנָה'],
+    answerIndex: 0,
+    explanationEn: 'The speed limit sign regulates that vehicles must not drive faster than 50 kilometers per hour.',
+    explanationHe: 'תמרור הגבלת מהירות מורה לנהגים שאסור לעבור את המהירות המצוינת, במקרה זה - 50 קמ"ש.',
+    visualType: 'speed-limit-50-sign'
   }
 ];

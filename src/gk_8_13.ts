@@ -905,5 +905,31 @@ export const GK_8_13_QUESTIONS: Question[] = [
     explanationEn: 'A blue circle with a red diagonal line means No Parking. You are not allowed to park your car here!',
     explanationHe: 'עיגול כחול עם קו אדום אלכסוני הוא תמרור "אין חניה". אסור להחנות את הרכב במקום זה!',
     visualType: 'no-parking-sign'
+  },
+  {
+    id: 'gk-8-visual-odd',
+    category: 'GeneralKnowledge',
+    ageGroup: '8-13',
+    questionEn: 'Look at the four faces. Which face is the "odd one out" (different from others)?',
+    questionHe: 'הַבִּיטוּ בְּאַרְבַּעַת הַפַּרְצוּפִים. אֵיזֶה פַּרְצוּף הוּא יוֹצֵא הַדֹּפֶן (שׁוֹנֶה מִכֻּלָּם)?',
+    optionsEn: ['The sad crying face', 'The first happy face', 'The second happy face', 'The fourth happy face'],
+    optionsHe: ['הַפַּרְצוּף הָעָצוּב הַבּוֹכֶה', 'הַפַּרְצוּף הַשָּׂמֵחַ הָרִאשׁוֹן', 'הַפַּרְצוּף הַשָּׂמֵחַ הַשֵּׁנִי', 'הַפַּרְצוּף הַשָּׂמֵחַ הָרְבִיעִי'],
+    answerIndex: 0,
+    explanationEn: 'Three of the faces are happy smiling faces, while the third one is sad and crying!',
+    explanationHe: 'שלושה מהפרצופים שמחים ומחייכים, בעוד הפרצוף השלישי עצוב ובוכה!',
+    visualType: 'odd-one-out'
+  },
+  {
+    id: 'gk-8-visual-puzzle',
+    category: 'GeneralKnowledge',
+    ageGroup: '8-13',
+    questionEn: 'Look at the grid of shapes: Star, Moon, Heart, and ?. What shape goes in the "?" slot to complete the sky theme?',
+    questionHe: 'הַבִּיטוּ בְּטַבְלַת הַצּוּרוֹת: כּוֹכָב, יָרֵחַ, לֵב, וּ-?. אֵיזוֹ צוּרָה מַשְׁלִימָה אֶת נוֹשֵׂא הַשָּׁמַיִם בַּ- "?"?',
+    optionsEn: ['A yellow sun', 'A green tree', 'A red car', 'A pink flower'],
+    optionsHe: ['שֶׁמֶשׁ צְהֻבָּה', 'עֵץ יָרֹק', 'מְכוֹנִית אֲדֻמָּה', 'פֶּרַח וָרֹד'],
+    answerIndex: 0,
+    explanationEn: 'A yellow sun fits the celestial sky theme perfectly alongside the star and the moon!',
+    explanationHe: 'שמש צהובה מתאימה באופן מושלם לנושא גרמי השמים לצד הכוכב והירח!',
+    visualType: 'puzzle-piece'
   }
 ];

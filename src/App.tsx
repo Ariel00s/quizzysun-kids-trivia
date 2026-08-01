@@ -442,6 +442,8 @@ export default function App() {
         addBadgeIfMissing('space-ranger');
       } else if (activeCategory === 'GeneralKnowledge') {
         addBadgeIfMissing('general-knowledge-master');
+      } else if (activeCategory === 'Stories') {
+        addBadgeIfMissing('stories-master');
       }
     }
 
@@ -786,9 +788,9 @@ export default function App() {
       </header>
 
       {/* Main Container content view */}
-      <main className="flex-grow flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-margin-mobile py-2 md:py-4 overflow-hidden">
+      <main className="flex-grow flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-margin-mobile py-2 md:py-4 overflow-hidden min-h-0">
         {/* Kid-Friendly Integrated Console Frame */}
-        <div className="w-full h-[620px] max-h-[85vh] bg-gradient-to-br from-[#F3E8FF]/95 via-white/98 to-[#E0F2FE]/95 backdrop-blur-md border-[6px] sm:border-[8px] border-[#74B9FF] rounded-[32px] p-3 sm:p-5 md:p-6 shadow-[0_8px_0_0_#74B9FF,0_15px_20px_-5px_rgba(0,0,0,0.08)] relative overflow-hidden flex flex-col min-h-0 z-10">
+        <div className="w-full h-[580px] max-h-[calc(100vh-140px)] bg-gradient-to-br from-[#F3E8FF]/95 via-white/98 to-[#E0F2FE]/95 backdrop-blur-md border-[6px] sm:border-[8px] border-[#74B9FF] rounded-[32px] p-3 sm:p-5 md:p-6 shadow-[0_8px_0_0_#74B9FF,0_15px_20px_-5px_rgba(0,0,0,0.08)] relative overflow-hidden flex flex-col min-h-0 z-10">
           
           {/* Playful Floating Background Motifs */}
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#D2E3FC]/30 rounded-full blur-2xl pointer-events-none" />

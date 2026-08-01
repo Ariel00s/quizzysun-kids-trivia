@@ -2,6 +2,7 @@ import { Question, Badge } from './types';
 import { GK_5_7_QUESTIONS } from './gk_5_7';
 import { GK_8_13_QUESTIONS } from './gk_8_13';
 import { GK_13_PLUS_QUESTIONS } from './gk_13_plus';
+import { STORIES_QUESTIONS } from './stories';
 
 export const BADGES: Badge[] = [
   {
@@ -93,6 +94,15 @@ export const BADGES: Badge[] = [
     descriptionHe: 'קיבלת 100% בחידון ידע כללי!',
     icon: '💡',
     color: 'bg-amber-600 text-white border-amber-800'
+  },
+  {
+    id: 'stories-master',
+    titleEn: 'Storyteller',
+    titleHe: 'מספר סיפורים',
+    descriptionEn: 'Scored 100% on a Stories & Fairytales quiz!',
+    descriptionHe: 'קיבלת 100% בחידון סיפורים ואגדות!',
+    icon: '🏰',
+    color: 'bg-pink-500 text-white border-pink-700'
   }
 ];
 
@@ -100,6 +110,7 @@ export const QUESTIONS: Question[] = [
   ...GK_5_7_QUESTIONS,
   ...GK_8_13_QUESTIONS,
   ...GK_13_PLUS_QUESTIONS,
+  ...STORIES_QUESTIONS,
   // ==================== GEOGRAPHY ====================
   // 5-7
   {

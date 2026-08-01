@@ -357,6 +357,7 @@ export default function VersusQuizView({
       case 'History': return lang === 'en' ? 'History ⏳' : 'היסטוריה ⏳';
       case 'Science': return lang === 'en' ? 'Science 🧪' : 'מדע 🧪';
       case 'Space': return lang === 'en' ? 'Space 🚀' : 'חלל 🚀';
+      case 'Stories': return lang === 'en' ? 'Stories 🏰' : 'סיפורים ואגדות 🏰';
       default: return lang === 'en' ? 'Mixed Topics ☀️' : 'נושאים מעורבים ☀️';
     }
   };

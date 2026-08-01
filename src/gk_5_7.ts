@@ -930,5 +930,31 @@ export const GK_5_7_QUESTIONS: Question[] = [
     explanationEn: 'The slippery road sign warns drivers that the road can be very slippery, especially when it rains!',
     explanationHe: 'תמרור כביש חלק מזהיר נהגים שהכביש עלול להיות חלק מאוד, במיוחד כשיורד גשם!',
     visualType: 'slippery-road-sign'
+  },
+  {
+    id: 'gk-5-visual-pedestrian',
+    category: 'GeneralKnowledge',
+    ageGroup: '5-7',
+    questionEn: 'Look at the blue square sign with a person walking. What does it mean?',
+    questionHe: 'הַבִּיטוּ בַּתַּמְרוּר הַכָּחֹל הַמְרֻבָּע עִם הָאִישׁ הַהוֹלֵךְ. מָה מַשְׁמָעוּתוֹ?',
+    optionsEn: ['Pedestrian crossing / crosswalk', 'Running track ahead', 'No walking allowed', 'Airport nearby'],
+    optionsHe: ['מַעֲבָר חֲצִיָּה לְהוֹלְכֵי רֶגֶל', 'מַסְלוּל רִיצָה לְפָנֶיךָ', 'אֲסוּרָה הַהֲלִיכָה בָּרֶגֶל', 'נְמַל תְּעוּפָה בַּקִּרְבָה'],
+    answerIndex: 0,
+    explanationEn: 'The pedestrian sign marks a crosswalk where drivers must stop to let people walk across the street safely.',
+    explanationHe: 'תמרור מעבר חצייה מסמן לנהגים שעליהם לעצור כדי לאפשר להולכי רגל לחצות את הכביש בבטחה.',
+    visualType: 'pedestrian-sign'
+  },
+  {
+    id: 'gk-5-visual-count',
+    category: 'GeneralKnowledge',
+    ageGroup: '5-7',
+    questionEn: 'Count the stars ⭐ in this colorful picture. How many stars can you find?',
+    questionHe: 'סִפְרוּ אֶת הַכּוֹכָבִים ⭐ בַּתְּמוּנָה הַצִּבְעוֹנִית. כַּמָּה כּוֹכָבִים מְצָאתֶם?',
+    optionsEn: ['4 stars', '5 stars', '3 stars', '6 stars'],
+    optionsHe: ['4 כּוֹכָבִים', '5 כּוֹכָבִים', '3 כּוֹכָבִים', '6 כּוֹכָבִים'],
+    answerIndex: 0,
+    explanationEn: 'Let\'s count them: one, two, three, four! There are exactly 4 yellow stars in the picture!',
+    explanationHe: 'בואו נספור אותם: אחד, שניים, שלושה, ארבעה! יש בדיוק 4 כוכבים צהובים בתמונה!',
+    visualType: 'count-shapes'
   }
 ];

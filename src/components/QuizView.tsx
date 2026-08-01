@@ -364,7 +364,8 @@ export default function QuizView({
                 currentQuestion.category === 'Math' ? 'חשבון' :
                 currentQuestion.category === 'History' ? 'היסטוריה' :
                 currentQuestion.category === 'Science' ? 'מדע' :
-                currentQuestion.category === 'Space' ? 'חלל' : currentQuestion.category
+                currentQuestion.category === 'Space' ? 'חלל' :
+                currentQuestion.category === 'Stories' ? 'סיפורים ואגדות' : currentQuestion.category
               )}
             </div>
 

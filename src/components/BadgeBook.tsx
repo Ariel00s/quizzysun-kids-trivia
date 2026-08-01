@@ -10,7 +10,7 @@ interface BadgeBookProps {
 
 export default function BadgeBook({ earnedBadgeIds, lang, onBack }: BadgeBookProps) {
   return (
-    <div className="w-full max-w-2xl mx-auto flex flex-col gap-3 relative animate-pop" dir={lang === 'he' ? 'rtl' : 'ltr'}>
+    <div className="w-full max-w-3xl mx-auto flex flex-col gap-3 relative animate-pop" dir={lang === 'he' ? 'rtl' : 'ltr'}>
       
       <div className="flex justify-between items-center border-b border-slate-100 pb-2">
         <div className="flex items-center gap-1.5">
@@ -37,7 +37,7 @@ export default function BadgeBook({ earnedBadgeIds, lang, onBack }: BadgeBookPro
       </p>
 
       {/* Grid of Badges */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[190px] overflow-y-auto pr-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[385px] overflow-y-auto pr-1">
         {BADGES.map((badge) => {
           const isEarned = earnedBadgeIds.includes(badge.id);
           return (

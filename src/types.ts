@@ -1,6 +1,6 @@
 export type Language = 'en' | 'he';
 export type AgeGroup = '5-7' | '8-13' | '13+';
-export type Category = 'Geography' | 'Animals' | 'Math' | 'History' | 'Science' | 'Space' | 'GeneralKnowledge';
+export type Category = 'Geography' | 'Animals' | 'Math' | 'History' | 'Science' | 'Space' | 'GeneralKnowledge' | 'Stories';
 
 export interface Player {
   id: string;

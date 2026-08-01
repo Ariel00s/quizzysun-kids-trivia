@@ -362,6 +362,7 @@ export default function MainMenu({
               { id: 'History', labelEn: 'History', labelHe: 'היסטוריה', emoji: '📜', bgColor: 'bg-rose-50/80 border-[#FF7675] text-[#D63031]' },
               { id: 'Science', labelEn: 'Science', labelHe: 'מדע', emoji: '🧪', bgColor: 'bg-teal-50/80 border-[#55EFC4] text-[#00A86B]' },
               { id: 'Space', labelEn: 'Space', labelHe: 'חלל', emoji: '🚀', bgColor: 'bg-purple-50/80 border-[#a29bfe] text-[#6C5CE7]' },
+              { id: 'Stories', labelEn: 'Stories & Tales', labelHe: 'סיפורים ואגדות', emoji: '🏰', bgColor: 'bg-rose-50/80 border-rose-300 text-rose-600' },
               { id: 'GeneralKnowledge', labelEn: 'General Info', labelHe: 'ידע כללי', emoji: '💡', bgColor: 'bg-amber-50/40 border-[#D2E3FC] text-[#E17055]' },
             ] as const).map((cat) => (
               <button
