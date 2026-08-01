@@ -29,7 +29,7 @@ export default function VictoryView({
 
   useEffect(() => {
     // Generate beautiful colorful confetti particles on mount
-    const colors = ['#74B9FF', '#FFEAA7', '#55EFC4', '#FF7675', '#a29bfe', '#fd79a8', '#f1c40f', '#e67e22', '#2ecc71', '#3498db'];
+    const colors = ['#74B9FF', '#D2E3FC', '#55EFC4', '#FF7675', '#a29bfe', '#fd79a8', '#f1c40f', '#e67e22', '#2ecc71', '#3498db'];
     const generated = Array.from({ length: 120 }).map((_, idx) => ({
       id: idx,
       left: `${Math.random() * 100}vw`,
@@ -108,7 +108,7 @@ export default function VictoryView({
                 key={starIdx}
                 className={`w-12 h-12 ${
                   isActive 
-                    ? 'text-[#FDCB6E] fill-[#FDCB6E] animate-bounce' 
+                    ? 'text-[#74B9FF] fill-[#74B9FF] animate-bounce' 
                     : 'text-slate-200 fill-slate-200'
                 }`}
                 style={{ animationDelay: `${starIdx * 0.1}s` }}
@@ -149,7 +149,7 @@ export default function VictoryView({
         {unlockedBadgeIds.length > 0 && (
           <div className="w-full border-t-2 border-slate-100 pt-md mt-2">
             <h4 className="font-label-bold text-[#FF7675] mb-2 flex items-center justify-center gap-1 text-base uppercase font-bold">
-              <Sparkles className="w-4 h-4 text-[#FDCB6E] fill-[#FDCB6E]" />
+              <Sparkles className="w-4 h-4 text-[#74B9FF] fill-[#74B9FF]" />
               <span>{lang === 'en' ? 'NEW BADGES UNLOCKED!' : 'תגים חדשים שנפתחו!'}</span>
             </h4>
             <div className="flex flex-wrap justify-center gap-2">
@@ -159,7 +159,7 @@ export default function VictoryView({
                 return (
                   <div
                     key={badgeId}
-                    className="flex items-center gap-2 bg-[#FFEAA7] border-2 border-[#FDCB6E] px-4 py-1.5 rounded-xl animate-bounce shadow-sm text-[#D35400]"
+                    className="flex items-center gap-2 bg-[#D2E3FC] border-2 border-[#74B9FF] px-4 py-1.5 rounded-xl animate-bounce shadow-sm text-[#0984E3]"
                   >
                     <span className="text-2xl">{badge.icon}</span>
                     <span className="font-bold text-xs">
@@ -194,9 +194,9 @@ export default function VictoryView({
       <div className="w-full flex flex-col gap-2 sm:gap-3 relative z-10">
         <button
           onClick={onNextRound}
-          className="w-full h-16 bg-[#FFEAA7] text-[#D35400] font-headline-md text-2xl border-4 border-[#FDCB6E] rounded-xl shadow-chunky-yellow hover-chunky-yellow active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer font-black"
+          className="w-full h-16 bg-[#D2E3FC] text-[#0984E3] font-headline-md text-2xl border-4 border-[#74B9FF] rounded-xl shadow-chunky-yellow hover-chunky-yellow active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer font-black"
         >
-          <Star className="w-6 h-6 text-[#D35400] fill-[#D35400]" />
+          <Star className="w-6 h-6 text-[#0984E3] fill-[#0984E3]" />
           <span>{lang === 'en' ? 'Next Round' : 'לסיבוב הבא'}</span>
         </button>
 

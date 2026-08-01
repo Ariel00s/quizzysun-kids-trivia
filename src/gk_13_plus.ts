@@ -868,5 +868,55 @@ export const GK_13_PLUS_QUESTIONS: Question[] = [
     explanationEn: 'The warning triangle with a bicycle alerts drivers that bicycle riders are likely crossing or riding on the road ahead.',
     explanationHe: 'תמרור אזהרה משולש ובו אופניים מזהיר את הנהגים כי רוכבי אופניים עשויים לחצות או לנוע בדרך שלפניהם.',
     visualType: 'bicycle-sign'
+  },
+  {
+    id: 'gk-13-story-odyssey',
+    category: 'GeneralKnowledge',
+    ageGroup: '13+',
+    questionEn: 'In Greek mythology, what clever wooden creation did the Greeks use to enter the city of Troy?',
+    questionHe: 'בַּמִּיתוֹלוֹגְיָה הַיְּוָנִית, בְּאֵיזֶה מִבְנֶה עֵץ חָכָם הִשְׁתַּמְּשׁוּ הַיְּוָנִים כְּדֵי לְהִכָּנֵס לָעִיר טְרוֹיָה?',
+    optionsEn: ['The Trojan Horse', 'The Trojan Eagle', 'The Wooden Fortress', 'The Giant Labyrinth'],
+    optionsHe: ['הַסּוּס הַטְּרוֹיָאנִי', 'הַנֶּשֶׁר הַטְּרוֹיָאנִי', 'מִבְצַר הָעֵץ', 'הַלָּבִירִינְתּ הָעֲנָקִי'],
+    answerIndex: 0,
+    explanationEn: "The Greeks built a giant wooden horse, hid soldiers inside, and left it as a gift. The Trojans pulled it into the city, leading to Troy's capture!",
+    explanationHe: 'היוונים בנו סוס עץ ענקי, החביאו לוחמים בתוכו והשאירו אותו כמתנה. הטרויאנים הכניסו אותו לעיר, מה שהוביל לכיבושה!'
+  },
+  {
+    id: 'gk-13-story-hobbit',
+    category: 'GeneralKnowledge',
+    ageGroup: '13+',
+    questionEn: "In J.R.R. Tolkien's 'The Hobbit', what game do Bilbo Baggins and Gollum play in the dark cave?",
+    questionHe: "בְּ'הַהוֹבִּיט' שֶׁל ג'.ר.ר. טוֹלְקִין, בְּאֵיזֶה מִשְׂחָק מְשַׂחֲקִים בִּילְבּוֹ בֶּגִינְס וְגוֹלוּם בַּמְּעָרָה הַחֲשׁוּכָה?",
+    optionsEn: ['Riddles in the Dark', 'Chess', 'Hide and Seek', 'Tic-Tac-Toe'],
+    optionsHe: ['חִידוֹת בַּאֲפֵלָה', 'שַׁחְמָט', 'מַחְבּוֹאִים', 'איקס עיגול'],
+    answerIndex: 0,
+    explanationEn: "Bilbo and Gollum engage in a game of riddles. Bilbo wins by asking, 'What have I got in my pocket?'",
+    explanationHe: 'בילבו וגולום עורכים תחרות חידות באפלה. בילבו מנצח כשהוא שואל "מה יש לי בכיס?"'
+  },
+  {
+    id: 'gk-13-visual-no-u-turn',
+    category: 'GeneralKnowledge',
+    ageGroup: '13+',
+    questionEn: 'Look at the visual sign with a curved arrow and a red slash! What does it prohibit?',
+    questionHe: 'הַבִּיטוּ בַּתַּמְרוּר עִם הַחֵץ הַמְעֻקָּל וְהַקַּו הָאָדֹם הָאלַכְסוֹנִי! מָה הוּא אוֹסֵר?',
+    optionsEn: ['U-turns', 'Left turns', 'Right turns', 'Overtaking other cars'],
+    optionsHe: ['פְּנִיַּת פַּרְסָה', 'פְּנִיָּה שְׂמֹאלָה', 'פְּנִיָּה יָמִינָה', 'עֲקִיפַת כְּלִי רֶכֶב אֲחֵרִים'],
+    answerIndex: 0,
+    explanationEn: 'This sign indicates that U-turns are strictly prohibited at this location.',
+    explanationHe: 'תמרור זה אוסר על ביצוע פניית פרסה במקום זה.',
+    visualType: 'no-u-turn-sign'
+  },
+  {
+    id: 'gk-13-visual-train',
+    category: 'GeneralKnowledge',
+    ageGroup: '13+',
+    questionEn: 'Look at the warning triangle containing a picture of a steam train! What is it alerting you to?',
+    questionHe: 'הַבִּיטוּ בַּתַּמְרוּר הַמְשֻׁלָּשׁ וּבוֹ סֵמֶל שֶׁל רַכֶּבֶת קִיטוֹר! מִפְּנֵי מָה הוּא מַזְהִיר?',
+    optionsEn: ['Railway crossing ahead without barriers', 'Train station nearby', 'Toy train track', 'High-speed rail line'],
+    optionsHe: ['מִפְגַּש מְסִילַּת בַּרְזֶל לְפָנֶיךָ לְלֹא מַחְסוֹם', 'תַּחֲנַת רַכֶּבֶת בְּקִרְבַת מָקוֹם', 'מְסִילַּת רַכֶּבֶת צַעֲצוּעַ', 'קַו רַכֶּבֶת מְהִירָה לְפָנֶיךָ'],
+    answerIndex: 0,
+    explanationEn: 'This sign warns drivers that there is an uncontrolled railway crossing ahead without automatic barriers.',
+    explanationHe: 'תמרור זה מזהיר מפני מפגש מסילת ברזל (פסי רכבת) ללא מחסום, ומורה לנהגים להאט ולהסתכל היטב.',
+    visualType: 'train-crossing-sign'
   }
 ];

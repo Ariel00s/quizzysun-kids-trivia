@@ -124,7 +124,7 @@ export const QuestionVisual: React.FC<QuestionVisualProps> = ({ question, lang }
             <rect x="42" y="42" width="16" height="34" rx="4" fill="#2D3436" />
             {/* Lights */}
             <circle cx="50" cy="48" r="3.5" fill="#FF7675" />
-            <circle cx="50" cy="59" r="3.5" fill="#FDCB6E" />
+            <circle cx="50" cy="59" r="3.5" fill="#74B9FF" />
             <circle cx="50" cy="70" r="3.5" fill="#55EFC4" />
           </svg>
         </div>
@@ -224,11 +224,11 @@ export const QuestionVisual: React.FC<QuestionVisualProps> = ({ question, lang }
         <div className={wrapperClass} id="visual-odd-one-out">
           <div className="grid grid-cols-4 gap-2 w-full px-2">
             {/* Face 1 */}
-            <div className="bg-[#FFEAA7] border-2 border-[#FDCB6E] rounded-full aspect-square flex items-center justify-center text-2xl shadow-sm">
+            <div className="bg-[#D2E3FC] border-2 border-[#74B9FF] rounded-full aspect-square flex items-center justify-center text-2xl shadow-sm">
               😊
             </div>
             {/* Face 2 */}
-            <div className="bg-[#FFEAA7] border-2 border-[#FDCB6E] rounded-full aspect-square flex items-center justify-center text-2xl shadow-sm">
+            <div className="bg-[#D2E3FC] border-2 border-[#74B9FF] rounded-full aspect-square flex items-center justify-center text-2xl shadow-sm">
               😊
             </div>
             {/* Face 3 - ODD ONE OUT */}
@@ -236,7 +236,7 @@ export const QuestionVisual: React.FC<QuestionVisualProps> = ({ question, lang }
               😢
             </div>
             {/* Face 4 */}
-            <div className="bg-[#FFEAA7] border-2 border-[#FDCB6E] rounded-full aspect-square flex items-center justify-center text-2xl shadow-sm">
+            <div className="bg-[#D2E3FC] border-2 border-[#74B9FF] rounded-full aspect-square flex items-center justify-center text-2xl shadow-sm">
               😊
             </div>
           </div>

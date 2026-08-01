@@ -116,7 +116,7 @@ export default function Leaderboard({ players, activePlayer, lang, onBack }: Lea
                   <h3 className="font-black text-xs sm:text-sm text-[#2D3436] truncate flex items-center gap-1.5">
                     <span>{player.name}</span>
                     {isSelf && (
-                      <span className="bg-[#FFEAA7] text-[#D35400] text-[8px] font-black px-1.5 py-0.5 rounded-full border border-[#FDCB6E]/50">
+                      <span className="bg-[#D2E3FC] text-[#0984E3] text-[8px] font-black px-1.5 py-0.5 rounded-full border border-[#74B9FF]/50">
                         {lang === 'en' ? 'You' : 'אני'}
                       </span>
                     )}
@@ -137,7 +137,7 @@ export default function Leaderboard({ players, activePlayer, lang, onBack }: Lea
                     </span>
                     <span className="w-0.5 h-0.5 bg-slate-300 rounded-full" />
                     <span className="flex items-center gap-0.5">
-                      <Award className="w-2.5 h-2.5 text-[#FDCB6E]" />
+                      <Award className="w-2.5 h-2.5 text-[#74B9FF]" />
                       <span>{player.badges.length} {lang === 'en' ? 'badges' : 'תגים'}</span>
                     </span>
                   </div>
@@ -146,7 +146,7 @@ export default function Leaderboard({ players, activePlayer, lang, onBack }: Lea
                 {/* Score */}
                 <div className="shrink-0 text-right">
                   <div className="flex items-center gap-1 justify-end">
-                    <Star className="w-3.5 h-3.5 text-[#FDCB6E] fill-[#FDCB6E]" />
+                    <Star className="w-3.5 h-3.5 text-[#74B9FF] fill-[#74B9FF]" />
                     <span className="font-black text-sm text-[#2D3436] leading-none">
                       {player.score}
                     </span>

@@ -18,7 +18,7 @@ export default function BadgeBook({ earnedBadgeIds, lang, onBack }: BadgeBookPro
           <h2 className="font-black text-[#2D3436] text-lg sm:text-xl">
             {lang === 'en' ? 'My Badges' : 'התגים שלי'}
           </h2>
-          <span className="font-black bg-[#FFEAA7] text-[#D35400] px-2.5 py-0.5 rounded-full text-xs border border-[#FDCB6E]">
+          <span className="font-black bg-[#D2E3FC] text-[#0984E3] px-2.5 py-0.5 rounded-full text-xs border border-[#74B9FF]">
             {earnedBadgeIds.length} / {BADGES.length}
           </span>
         </div>

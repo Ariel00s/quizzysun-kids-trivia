@@ -162,7 +162,7 @@ export default function RegisterPlayer({ onRegister, onCancel, lang, onOpenSetti
             disabled={!name.trim()}
             className={`flex-1 py-3 font-headline-md text-lg border-4 rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer font-bold ${
               name.trim()
-                ? 'bg-secondary-container text-on-secondary-container border-[#FDCB6E] shadow-chunky-yellow hover-chunky-yellow'
+                ? 'bg-secondary-container text-on-secondary-container border-[#74B9FF] shadow-chunky-yellow hover-chunky-yellow'
                 : 'bg-surface-variant text-on-surface-variant border-outline-variant opacity-50 cursor-not-allowed'
             }`}
           >

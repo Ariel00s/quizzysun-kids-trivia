@@ -107,7 +107,7 @@ function InlineAddPlayerForm({ lang, onSave, onCancel }: InlineAddPlayerFormProp
               onClick={() => setAgeGroup(group)}
               className={`py-2 rounded-xl border-2 text-xs font-bold transition-all cursor-pointer ${
                 ageGroup === group
-                  ? 'bg-[#FFEAA7] border-[#FDCB6E] text-[#D35400] shadow-sm font-black'
+                  ? 'bg-[#D2E3FC] border-[#74B9FF] text-[#0984E3] shadow-sm font-black'
                   : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'
               }`}
             >
@@ -156,7 +156,7 @@ function InlineAddPlayerForm({ lang, onSave, onCancel }: InlineAddPlayerFormProp
                 onClick={() => setSelectedAvatar(avatar)}
                 className={`w-10 h-10 rounded-full text-xl flex items-center justify-center transition-all cursor-pointer ${
                   selectedAvatar === avatar && !profilePic
-                    ? 'bg-[#FFEAA7] border-2 border-[#FDCB6E] scale-110 shadow-sm'
+                    ? 'bg-[#D2E3FC] border-2 border-[#74B9FF] scale-110 shadow-sm'
                     : 'bg-slate-50 hover:bg-slate-100'
                 }`}
               >
@@ -323,10 +323,10 @@ export default function MainMenu({
             <span>🎯</span>
             <span>{lang === 'en' ? 'Match:' : 'משחק של:'}</span>
             {!versusEnabled ? (
-              <span className="bg-[#FFEAA7] text-[#D35400] px-3 py-1 rounded-full border border-[#FDCB6E] flex items-center gap-1.5 shadow-sm">
+              <span className="bg-[#D2E3FC] text-[#0984E3] px-3 py-1 rounded-full border border-[#74B9FF] flex items-center gap-1.5 shadow-sm">
                 <span>{activePlayer?.avatar}</span>
                 <span>{activePlayer?.name}</span>
-                <span className="text-xs bg-white px-2 py-0.5 rounded-full border border-[#FDCB6E] text-[#D35400]">
+                <span className="text-xs bg-white px-2 py-0.5 rounded-full border border-[#74B9FF] text-[#0984E3]">
                   {activePlayer?.ageGroup}
                 </span>
               </span>
@@ -357,12 +357,12 @@ export default function MainMenu({
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 w-full max-w-4xl mx-auto">
             {([
               { id: 'Geography', labelEn: 'Geography', labelHe: 'גאוגרפיה', emoji: '🌍', bgColor: 'bg-blue-50/80 border-[#74B9FF] text-[#0984E3]' },
-              { id: 'Animals', labelEn: 'Animals', labelHe: 'בעלי חיים', emoji: '🦁', bgColor: 'bg-amber-50/80 border-[#FDCB6E] text-[#D35400]' },
+              { id: 'Animals', labelEn: 'Animals', labelHe: 'בעלי חיים', emoji: '🦁', bgColor: 'bg-amber-50/80 border-[#74B9FF] text-[#0984E3]' },
               { id: 'Math', labelEn: 'Math', labelHe: 'חשבון', emoji: '🔢', bgColor: 'bg-emerald-50/80 border-[#55EFC4] text-[#00B894]' },
               { id: 'History', labelEn: 'History', labelHe: 'היסטוריה', emoji: '📜', bgColor: 'bg-rose-50/80 border-[#FF7675] text-[#D63031]' },
               { id: 'Science', labelEn: 'Science', labelHe: 'מדע', emoji: '🧪', bgColor: 'bg-teal-50/80 border-[#55EFC4] text-[#00A86B]' },
               { id: 'Space', labelEn: 'Space', labelHe: 'חלל', emoji: '🚀', bgColor: 'bg-purple-50/80 border-[#a29bfe] text-[#6C5CE7]' },
-              { id: 'GeneralKnowledge', labelEn: 'General Info', labelHe: 'ידע כללי', emoji: '💡', bgColor: 'bg-amber-50/40 border-[#FFEAA7] text-[#E17055]' },
+              { id: 'GeneralKnowledge', labelEn: 'General Info', labelHe: 'ידע כללי', emoji: '💡', bgColor: 'bg-amber-50/40 border-[#D2E3FC] text-[#E17055]' },
             ] as const).map((cat) => (
               <button
                 key={cat.id}
@@ -377,7 +377,7 @@ export default function MainMenu({
             {/* Quick Play combined directly as an attractive tile in the grid to save massive space */}
             <button
               onClick={() => handleCategoryPlay('All')}
-              className="col-span-2 sm:col-span-1 md:col-span-1 p-3.5 bg-[#FFEAA7] text-[#D35400] font-black text-xs sm:text-sm md:text-base border-2 border-[#FDCB6E] rounded-2xl shadow-sm hover:scale-102 active:translate-y-0.5 cursor-pointer flex items-center justify-center gap-2 animate-pulse"
+              className="col-span-2 sm:col-span-1 md:col-span-1 p-3.5 bg-[#D2E3FC] text-[#0984E3] font-black text-xs sm:text-sm md:text-base border-2 border-[#74B9FF] rounded-2xl shadow-sm hover:scale-102 active:translate-y-0.5 cursor-pointer flex items-center justify-center gap-2 animate-pulse"
             >
               <span>🎮</span>
               <span>{lang === 'en' ? 'Mixed (All)' : 'משחק מעורב'}</span>
@@ -422,7 +422,7 @@ export default function MainMenu({
                       }}
                       className={`w-12 h-12 rounded-full text-2xl flex items-center justify-center transition-all ${
                         !isUnlocked ? 'bg-slate-100 opacity-50 grayscale cursor-not-allowed' :
-                        isSelected ? 'bg-[#FFEAA7] border-2 border-[#FDCB6E] scale-110 shadow-sm' :
+                        isSelected ? 'bg-[#D2E3FC] border-2 border-[#74B9FF] scale-110 shadow-sm' :
                         'bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer hover:scale-105'
                       }`}
                     >
@@ -472,7 +472,7 @@ export default function MainMenu({
               }}
               className={`px-4 py-1.5 rounded-full font-black text-xs transition-all cursor-pointer flex items-center gap-1 ${
                 !versusEnabled
-                  ? 'bg-[#FFEAA7] text-[#D35400] shadow-sm'
+                  ? 'bg-[#D2E3FC] text-[#0984E3] shadow-sm'
                   : 'text-slate-500 hover:text-slate-800'
               }`}
             >
@@ -544,7 +544,7 @@ export default function MainMenu({
                       }}
                       className={`px-4 py-2 rounded-2xl border-2 font-black text-sm flex items-center gap-2 transition-all cursor-pointer ${
                         isActive
-                          ? 'bg-[#FFEAA7] border-[#FDCB6E] text-[#D35400] shadow-sm scale-102'
+                          ? 'bg-[#D2E3FC] border-[#74B9FF] text-[#0984E3] shadow-sm scale-102'
                           : isOpponent
                           ? 'bg-rose-100 border-rose-300 text-rose-600'
                           : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600'
@@ -558,7 +558,7 @@ export default function MainMenu({
                         <span className="text-xl">{p.avatar}</span>
                       )}
                       <span>{p.name}</span>
-                      {isActive && <Check className="w-4 h-4 text-[#D35400]" />}
+                      {isActive && <Check className="w-4 h-4 text-[#0984E3]" />}
                       {isOpponent && <span className="text-[10px] bg-rose-200 text-rose-700 px-1.5 py-0.5 rounded-full font-bold">VS</span>}
                     </button>
                   );
@@ -592,7 +592,7 @@ export default function MainMenu({
               activePlayer && (
                 <div className="flex flex-col md:flex-row items-center gap-4 text-left bg-slate-50/80 p-3 sm:p-4 rounded-2xl border border-slate-200">
                   <div 
-                    className="relative w-16 h-16 rounded-full border-4 border-[#FDCB6E] bg-[#FFEAA7] flex items-center justify-center shrink-0 shadow-sm cursor-pointer hover:scale-105 active:scale-95 transition-transform"
+                    className="relative w-16 h-16 rounded-full border-4 border-[#74B9FF] bg-[#D2E3FC] flex items-center justify-center shrink-0 shadow-sm cursor-pointer hover:scale-105 active:scale-95 transition-transform"
                     onClick={() => setShowAvatarModal(true)}
                     title={lang === 'en' ? 'Change Avatar' : 'החלפת דמות'}
                   >
@@ -619,7 +619,7 @@ export default function MainMenu({
                       </h4>
                       <button
                         onClick={() => handleAgeGroupCycle(activePlayer)}
-                        className="px-2.5 py-0.5 bg-[#FFEAA7] text-[#D35400] text-[11px] font-black rounded-full border border-[#FDCB6E] hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-sm"
+                        className="px-2.5 py-0.5 bg-[#D2E3FC] text-[#0984E3] text-[11px] font-black rounded-full border border-[#74B9FF] hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-sm"
                         title={lang === 'en' ? 'Click to change age group' : 'לחץ לשינוי קבוצת הגיל'}
                       >
                         {activePlayer.ageGroup === '5-7'
@@ -633,16 +633,16 @@ export default function MainMenu({
                     {/* Progress goal tracker */}
                     <div className="w-full mt-2">
                       <div className="flex justify-between items-center mb-1">
-                        <span className="font-bold text-[10px] text-[#D35400] leading-none uppercase tracking-wider">
+                        <span className="font-bold text-[10px] text-[#0984E3] leading-none uppercase tracking-wider">
                           🌟 {lang === 'en' ? `Level ${(activePlayer.level || 1)}` : `רמה ${(activePlayer.level || 1)}`}
                         </span>
-                        <span className="font-bold text-[10px] text-[#D35400] leading-none">
+                        <span className="font-bold text-[10px] text-[#0984E3] leading-none">
                           {((activePlayer.xp || 0) % 250)} / 250 XP
                         </span>
                       </div>
                       <div className="h-3.5 w-full bg-slate-200 rounded-full overflow-hidden relative shadow-inner">
                         <div
-                          className="h-full bg-[#FDCB6E] rounded-full candy-stripe transition-all duration-500"
+                          className="h-full bg-[#74B9FF] rounded-full candy-stripe transition-all duration-500"
                           style={{ width: `${(((activePlayer.xp || 0) % 250) / 250) * 100}%` }}
                         />
                       </div>
@@ -763,7 +763,7 @@ export default function MainMenu({
                 </div>
 
                 {/* Versus style details reminder */}
-                <div className="mt-1 p-3.5 bg-amber-50/40 border border-dashed border-[#FDCB6E] rounded-2xl flex flex-col sm:flex-row items-center justify-between text-xs font-bold text-[#D35400] gap-4">
+                <div className="mt-1 p-3.5 bg-amber-50/40 border border-dashed border-[#74B9FF] rounded-2xl flex flex-col sm:flex-row items-center justify-between text-xs font-bold text-[#0984E3] gap-4">
                   <div className="flex items-center gap-2 text-left">
                     <span>⚡</span>
                     <span>

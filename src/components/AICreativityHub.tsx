@@ -150,7 +150,7 @@ export default function AICreativityHub({
       {/* Top Header Panel */}
       <div className="w-full flex justify-between items-center border-b border-slate-100 pb-2">
         <div className="flex items-center gap-1.5">
-          <Sparkles className="w-5 h-5 text-[#FDCB6E] animate-pulse" />
+          <Sparkles className="w-5 h-5 text-[#74B9FF] animate-pulse" />
           <h2 className="font-black text-lg sm:text-xl text-[#FF7675] uppercase">
             {lang === "en" ? "AI Creativity Hub" : "מרכז היצירה של AI"}
           </h2>
@@ -209,7 +209,7 @@ export default function AICreativityHub({
                     onClick={() => setImageSize(size)}
                     className={`py-1 rounded-lg border text-[10px] font-bold transition-all cursor-pointer ${
                       imageSize === size
-                        ? "bg-[#FFEAA7] border-[#FDCB6E] text-[#D35400] font-black shadow-xs"
+                        ? "bg-[#D2E3FC] border-[#74B9FF] text-[#0984E3] font-black shadow-xs"
                         : "bg-white/80 border-slate-200 text-slate-500 hover:bg-slate-100"
                     }`}
                   >
@@ -252,7 +252,7 @@ export default function AICreativityHub({
                 onClick={handleGenerateMascot}
                 className={`w-full py-2 rounded-xl border font-black text-xs transition-all cursor-pointer text-center ${
                   imagePrompt.trim()
-                    ? "bg-[#FFEAA7] text-[#D35400] border-[#FDCB6E] shadow-xs hover:bg-[#ffeaa7]/90"
+                    ? "bg-[#D2E3FC] text-[#0984E3] border-[#74B9FF] shadow-xs hover:bg-[#ffeaa7]/90"
                     : "bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed"
                 }`}
               >
@@ -308,7 +308,7 @@ export default function AICreativityHub({
                   onClick={() => setTrackType("short")}
                   className={`py-1 rounded-lg border text-[10px] font-bold transition-all cursor-pointer ${
                     trackType === "short"
-                      ? "bg-[#FFEAA7] border-[#FDCB6E] text-[#D35400] font-black shadow-xs"
+                      ? "bg-[#D2E3FC] border-[#74B9FF] text-[#0984E3] font-black shadow-xs"
                       : "bg-white/80 border-slate-200 text-slate-500 hover:bg-slate-100"
                   }`}
                 >
@@ -319,7 +319,7 @@ export default function AICreativityHub({
                   onClick={() => setTrackType("long")}
                   className={`py-1 rounded-lg border text-[10px] font-bold transition-all cursor-pointer ${
                     trackType === "long"
-                      ? "bg-[#FFEAA7] border-[#FDCB6E] text-[#D35400] font-black shadow-xs"
+                      ? "bg-[#D2E3FC] border-[#74B9FF] text-[#0984E3] font-black shadow-xs"
                       : "bg-white/80 border-slate-200 text-slate-500 hover:bg-slate-100"
                   }`}
                 >
@@ -369,7 +369,7 @@ export default function AICreativityHub({
                 onClick={handleGenerateMusic}
                 className={`w-full py-2 rounded-xl border font-black text-xs transition-all cursor-pointer text-center ${
                   musicPrompt.trim()
-                    ? "bg-[#FFEAA7] text-[#D35400] border-[#FDCB6E] shadow-xs hover:bg-[#ffeaa7]/90"
+                    ? "bg-[#D2E3FC] text-[#0984E3] border-[#74B9FF] shadow-xs hover:bg-[#ffeaa7]/90"
                     : "bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed"
                 }`}
               >

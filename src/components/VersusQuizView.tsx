@@ -314,14 +314,14 @@ export default function VersusQuizView({
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (modeStyle === 'turn' && hasAnswered && showFeedback === 'correct') {
+    if (modeStyle === 'turn' && hasAnswered) {
       timer = setTimeout(() => {
         handleNextTurnByTurn();
-      }, 2000);
+      }, 3000);
     }
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modeStyle, hasAnswered, showFeedback, activeTurn, currentRound]);
+  }, [modeStyle, hasAnswered, activeTurn, currentRound]);
 
   // Complete match & notify parent
   const handleFinishMatch = () => {
@@ -389,7 +389,7 @@ export default function VersusQuizView({
         {/* Duel comparison cards */}
         <div className="grid grid-cols-2 gap-3 mb-5 w-full">
           {/* Player 1 summary */}
-          <div className={`p-3.5 rounded-2xl border-2 ${p1Score >= p2Score ? 'bg-amber-50/80 border-[#FDCB6E]' : 'bg-white border-slate-200'}`}>
+          <div className={`p-3.5 rounded-2xl border-2 ${p1Score >= p2Score ? 'bg-amber-50/80 border-[#74B9FF]' : 'bg-white border-slate-200'}`}>
             {player1.profilePic ? (
               <div className="w-11 h-11 rounded-full border border-[#74B9FF] overflow-hidden shrink-0 bg-white mx-auto flex items-center justify-center">
                 <img src={player1.profilePic} alt={player1.name} className="w-full h-full object-cover scale-x-[-1]" />
@@ -398,11 +398,11 @@ export default function VersusQuizView({
               <span className="text-4xl">{player1.avatar}</span>
             )}
             <p className="text-base font-bold text-[#2D3436] mt-1 truncate">{player1.name}</p>
-            <p className="text-lg font-black text-[#D35400] mt-0.5">{p1Score} {lang === 'en' ? 'Correct' : 'נכונות'}</p>
+            <p className="text-lg font-black text-[#0984E3] mt-0.5">{p1Score} {lang === 'en' ? 'Correct' : 'נכונות'}</p>
           </div>
 
           {/* Player 2 summary */}
-          <div className={`p-3.5 rounded-2xl border-2 ${p2Score >= p1Score ? 'bg-amber-50/80 border-[#FDCB6E]' : 'bg-white border-slate-200'}`}>
+          <div className={`p-3.5 rounded-2xl border-2 ${p2Score >= p1Score ? 'bg-amber-50/80 border-[#74B9FF]' : 'bg-white border-slate-200'}`}>
             {player2.profilePic ? (
               <div className="w-11 h-11 rounded-full border border-rose-300 overflow-hidden shrink-0 bg-white mx-auto flex items-center justify-center">
                 <img src={player2.profilePic} alt={player2.name} className="w-full h-full object-cover scale-x-[-1]" />
@@ -411,7 +411,7 @@ export default function VersusQuizView({
               <span className="text-4xl">{player2.avatar}</span>
             )}
             <p className="text-base font-bold text-[#2D3436] mt-1 truncate">{player2.name}</p>
-            <p className="text-lg font-black text-[#D35400] mt-0.5">{p2Score} {lang === 'en' ? 'Correct' : 'נכונות'}</p>
+            <p className="text-lg font-black text-[#0984E3] mt-0.5">{p2Score} {lang === 'en' ? 'Correct' : 'נכונות'}</p>
           </div>
         </div>
 
@@ -426,7 +426,7 @@ export default function VersusQuizView({
           
           <button
             onClick={handleFinishMatch}
-            className="flex-grow py-2.5 bg-[#FFEAA7] text-[#D35400] border-2 border-[#FDCB6E] rounded-xl shadow-sm font-black text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all"
+            className="flex-grow py-2.5 bg-[#D2E3FC] text-[#0984E3] border-2 border-[#74B9FF] rounded-xl shadow-sm font-black text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all"
           >
             <span>{lang === 'en' ? 'Claim Points!' : 'איסוף נקודות!'}</span>
             <ArrowRight className="w-4 h-4" />
@@ -456,7 +456,7 @@ export default function VersusQuizView({
         </h3>
 
         {/* Big Avatar Card */}
-        <div className="w-40 h-40 mx-auto rounded-full bg-amber-50 border-4 border-[#FDCB6E] flex items-center justify-center text-7xl shadow-md mb-6 animate-pulse">
+        <div className="w-40 h-40 mx-auto rounded-full bg-amber-50 border-4 border-[#74B9FF] flex items-center justify-center text-7xl shadow-md mb-6 animate-pulse">
           {activeChallenger.profilePic ? (
             <img src={activeChallenger.profilePic} alt={activeChallenger.name} className="w-16 h-16 rounded-full object-cover scale-x-[-1] border-4 border-current" />
           ) : (
@@ -501,7 +501,7 @@ export default function VersusQuizView({
               setTimeRemaining(timeLimitSeconds);
             }
           }}
-          className="w-full py-4 bg-secondary-container text-on-secondary-container border-4 border-[#FDCB6E] rounded-2xl shadow-chunky-yellow hover-chunky-yellow font-extrabold text-xl flex items-center justify-center gap-2 cursor-pointer animate-bounce"
+          className="w-full py-4 bg-secondary-container text-on-secondary-container border-4 border-[#74B9FF] rounded-2xl shadow-chunky-yellow hover-chunky-yellow font-extrabold text-xl flex items-center justify-center gap-2 cursor-pointer animate-bounce"
         >
           <span>{lang === 'en' ? 'START MY TURN! ⏱️' : 'להתחלת התור שלי! ⏱️'}</span>
         </button>
@@ -520,7 +520,7 @@ export default function VersusQuizView({
       <div className="flex items-center justify-between border-b-2 border-slate-100 pb-2 mb-2 gap-2">
         {/* Active Player */}
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-amber-100 border border-[#FDCB6E] flex items-center justify-center text-lg shrink-0">
+          <div className="w-8 h-8 rounded-full bg-amber-100 border border-[#74B9FF] flex items-center justify-center text-lg shrink-0">
             {currentChallenger.profilePic ? (
               <img src={currentChallenger.profilePic} alt={currentChallenger.name} className="w-6 h-6 rounded-full object-cover scale-x-[-1]" />
             ) : (
@@ -555,7 +555,7 @@ export default function VersusQuizView({
             <div>{player1.name}: {p1Score}</div>
             <div>{player2.name}: {p2Score}</div>
           </div>
-          <div className="px-2.5 py-0.5 bg-amber-50 border border-[#FDCB6E] text-[#D35400] font-black text-xs rounded-lg">
+          <div className="px-2.5 py-0.5 bg-amber-50 border border-[#74B9FF] text-[#0984E3] font-black text-xs rounded-lg">
             {currentChallengerScore} pts
           </div>
         </div>
@@ -601,7 +601,7 @@ export default function VersusQuizView({
       {currentQuestion ? (
         <div className="w-full flex flex-col gap-3">
           {/* Question card */}
-          <div className="bg-[#FFF9E6] border-4 border-[#FDCB6E] rounded-[24px] p-3 shadow-inner relative min-h-[70px] flex items-center justify-center text-center group">
+          <div className="bg-[#E8F0FE] border-4 border-[#74B9FF] rounded-[24px] p-3 shadow-inner relative min-h-[70px] flex items-center justify-center text-center group">
             <button
               onClick={narrateQuestion}
               className="absolute top-2 left-2 w-9 h-9 rounded-full border-2 border-[#74B9FF] bg-blue-50 hover:bg-blue-100 flex items-center justify-center cursor-pointer transition-all hover:scale-110 active:scale-95 shadow-sm opacity-50 hover:opacity-100"
@@ -674,21 +674,7 @@ export default function VersusQuizView({
             </div>
           )}
 
-          {/* Action button in Turn Mode */}
-          {hasAnswered && modeStyle === 'turn' && (
-            <button
-              onClick={handleNextTurnByTurn}
-              className="mt-2 w-full py-3.5 bg-secondary-container text-on-secondary-container border-4 border-[#FDCB6E] rounded-xl shadow-chunky-yellow hover-chunky-yellow font-extrabold text-base flex items-center justify-center gap-2 cursor-pointer animate-pop"
-            >
-              <span>
-                {activeTurn === 1 
-                  ? lang === 'en' ? `Pass to ${player2.name} ➡️` : `העברת תור ל-${player2.name} ➡️`
-                  : currentRound >= totalRounds
-                    ? lang === 'en' ? 'Finish Duel! 🏆' : 'סיום הדו-קרב! 🏆'
-                    : lang === 'en' ? 'Next Round ➡️' : 'סיבוב הבא ➡️'}
-              </span>
-            </button>
-          )}
+
 
         </div>
       ) : (

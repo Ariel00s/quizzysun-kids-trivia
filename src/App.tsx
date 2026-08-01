@@ -716,7 +716,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative h-screen w-full flex flex-col justify-between overflow-hidden bg-[#FFF9E6]" dir={lang === "he" ? "rtl" : "ltr"}>
+    <div className="relative h-screen w-full flex flex-col justify-between overflow-hidden bg-[#E8F0FE]" dir={lang === "he" ? "rtl" : "ltr"}>
       
       {/* Immersive landscape backdrop */}
       <div 
@@ -762,7 +762,7 @@ export default function App() {
 
                 <button
                   onClick={() => setScreen('leaderboard')}
-                  className="flex items-center gap-1 bg-[#FDCB6E] text-white border-2 border-white/60 px-2 py-1 rounded-full text-xs font-bold shadow-md hover:scale-105 active:translate-y-0.5 transition-all cursor-pointer whitespace-nowrap shrink-0"
+                  className="flex items-center gap-1 bg-[#74B9FF] text-white border-2 border-white/60 px-2 py-1 rounded-full text-xs font-bold shadow-md hover:scale-105 active:translate-y-0.5 transition-all cursor-pointer whitespace-nowrap shrink-0"
                 >
                   <span>⭐</span>
                   <span>{activePlayer.score}</span>
@@ -788,10 +788,10 @@ export default function App() {
       {/* Main Container content view */}
       <main className="flex-grow flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-margin-mobile py-2 md:py-4 overflow-hidden">
         {/* Kid-Friendly Integrated Console Frame */}
-        <div className="w-full bg-gradient-to-b from-[#E0F7FA]/95 via-white/98 to-[#FFF9C4]/95 backdrop-blur-md border-[6px] sm:border-[8px] border-[#FFEAA7] rounded-[32px] p-3 sm:p-5 md:p-6 shadow-[0_8px_0_0_#FFEAA7,0_15px_20px_-5px_rgba(0,0,0,0.08)] relative overflow-hidden flex flex-col min-h-0 z-10">
+        <div className="w-full h-[620px] max-h-[85vh] bg-gradient-to-br from-[#F3E8FF]/95 via-white/98 to-[#E0F2FE]/95 backdrop-blur-md border-[6px] sm:border-[8px] border-[#74B9FF] rounded-[32px] p-3 sm:p-5 md:p-6 shadow-[0_8px_0_0_#74B9FF,0_15px_20px_-5px_rgba(0,0,0,0.08)] relative overflow-hidden flex flex-col min-h-0 z-10">
           
           {/* Playful Floating Background Motifs */}
-          <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#FFEAA7]/30 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#D2E3FC]/30 rounded-full blur-2xl pointer-events-none" />
           <div className="absolute top-6 left-6 text-2xl select-none opacity-25 pointer-events-none animate-pulse" style={{ animationDuration: '8s' }}>☁️</div>
           <div className="absolute top-1/4 right-8 text-3xl select-none opacity-20 pointer-events-none animate-pulse" style={{ animationDuration: '12s' }}>☁️</div>
           <div className="absolute bottom-1/4 left-10 text-2xl select-none opacity-20 pointer-events-none animate-bounce" style={{ animationDuration: '10s' }}>🎈</div>
@@ -806,7 +806,7 @@ export default function App() {
       </main>
 
       {/* Humble educational footer */}
-      <footer className="w-full py-2.5 text-center text-[10px] sm:text-xs text-[#2D3436] font-bold bg-[#FFEAA7]/40 border-t-2 border-[#FDCB6E] shadow-inner z-20">
+      <footer className="w-full py-2.5 text-center text-[10px] sm:text-xs text-[#2D3436] font-bold bg-[#D2E3FC]/40 border-t-2 border-[#74B9FF] shadow-inner z-20">
         <div className="max-w-2xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-1.5">
           <p>© {new Date().getFullYear()} QuizzySun. All rights reserved.</p>
           <div className="flex items-center gap-1">
@@ -880,11 +880,11 @@ export default function App() {
                   onClick={handleSoundToggle}
                   className={`w-full flex items-center justify-center gap-2 py-3 rounded-2xl border-2 font-bold text-sm transition-all cursor-pointer shadow-sm active:translate-y-0.5 ${
                     soundOn
-                      ? 'bg-[#FFEAA7] text-[#D35400] border-[#FDCB6E]'
+                      ? 'bg-[#D2E3FC] text-[#0984E3] border-[#74B9FF]'
                       : 'bg-white text-slate-500 border-slate-300'
                   }`}
                 >
-                  {soundOn ? <Volume2 className="w-5 h-5 text-[#D35400]" /> : <VolumeX className="w-5 h-5" />}
+                  {soundOn ? <Volume2 className="w-5 h-5 text-[#0984E3]" /> : <VolumeX className="w-5 h-5" />}
                   <span>
                     {soundOn 
                       ? lang === 'en' ? 'Narrator: Enabled 🔊' : 'קריינות: פעילה 🔊'

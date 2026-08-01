@@ -880,5 +880,55 @@ export const GK_5_7_QUESTIONS: Question[] = [
     explanationEn: 'The pattern repeats the three colors of a traffic light: Red, Yellow, Green!',
     explanationHe: 'הסדרה חוזרת על שלושת צבעי הרמזור לפי הסדר: אדום, צהוב, ירוק!',
     visualType: 'pattern-complete'
+  },
+  {
+    id: 'gk-5-story-pinocchio',
+    category: 'GeneralKnowledge',
+    ageGroup: '5-7',
+    questionEn: "In the famous story, what happens to Pinocchio's nose when he tells a lie?",
+    questionHe: 'בַּסִּפּוּר הַמְפֻרְסָם, מָה קוֹרֶה לָאַף שֶׁל פִּינוֹקְיוֹ כְּשֶׁהוּא מְשַׁקֵּר?',
+    optionsEn: ['It gets longer', 'It turns blue', 'It disappears', 'It starts to wiggle'],
+    optionsHe: ['הוּא מִתְאָרֵךְ', 'הוּא הֹפֵךְ לְכָחֹל', 'הוּא נֶעֱלָם', 'הוּא מַתְחִיל לְהִתְנַדְנֵד'],
+    answerIndex: 0,
+    explanationEn: "Pinocchio's wooden nose grows longer every time he tells a lie!",
+    explanationHe: 'אפו של פינוקיו מעץ מתארך בכל פעם שהוא מספר שקר!'
+  },
+  {
+    id: 'gk-5-story-goldilocks',
+    category: 'GeneralKnowledge',
+    ageGroup: '5-7',
+    questionEn: 'Whose house does Goldilocks visit in the forest?',
+    questionHe: 'בְּבֵיתוֹ שֶׁל מִי מְבַקֶּרֶת זַהֲבָה בַּיַּעַר?',
+    optionsEn: ['The Three Bears', 'The Little Red Hen', 'The Seven Dwarfs', 'The Three Little Pigs'],
+    optionsHe: ['שְׁלֹשֶׁת הַדֻּבִּים', 'הַתַּרְנְגֹלֶת הָאֲדֻמָּה הַקְּטַנָּה', 'שִׁבְעַת הַגַּמָּדִים', 'הַחֲזִירוֹנִים הַקְּטַנִּים'],
+    answerIndex: 0,
+    explanationEn: 'Goldilocks enters the cottage of the Three Bears and tastes their porridge!',
+    explanationHe: 'זהבה נכנסת לבקתה של שלושת הדובים וטועמת מהדייסה שלהם!'
+  },
+  {
+    id: 'gk-5-visual-school-zone',
+    category: 'GeneralKnowledge',
+    ageGroup: '5-7',
+    questionEn: 'Look at the visual warning! What does this sign with two children walking mean?',
+    questionHe: 'הַבִּיטוּ בַּתַּמְרוּר! מָה מַשְׁמָעוּת תַּמְרוּר זֶה שֶׁמַּרְאֶה שְׁנֵי יְלָדִים הוֹלְכִים?',
+    optionsEn: ['School zone / children nearby', 'Toy store ahead', 'No children allowed', 'Playground closed'],
+    optionsHe: ['אֵזוֹר בֵּית סֵפֶר / יְלָדִים בַּקִּרְבָה', 'חֲנוּת צַעֲצוּעִים לְפָנֶיךָ', 'הַכְּנִיסָה לִילָדִים אֲסוּרָה', 'גַּן הַשַּׂחֲקִים סָגוּר'],
+    answerIndex: 0,
+    explanationEn: 'The School Zone sign warns drivers to slow down because children are walking nearby!',
+    explanationHe: 'תמרור אזור בית ספר מזהיר את הנהגים להאט כי ישנם ילדים שחוצים או הולכים בקרבת מקום!',
+    visualType: 'school-zone-sign'
+  },
+  {
+    id: 'gk-5-visual-slippery',
+    category: 'GeneralKnowledge',
+    ageGroup: '5-7',
+    questionEn: 'Look at the sign with a car and wiggly lines! What does this mean?',
+    questionHe: 'הַבִּיטוּ בַּתַּמְרוּר עִם הַמְּכוֹנִית וְהַקַּוִּים הַמְפֻתָּלִים! מָה זֶה אוֹמֵר?',
+    optionsEn: ['Slippery road ahead', 'Car wash ahead', 'Race track ahead', 'No cars allowed'],
+    optionsHe: ['כְּבִישׁ חָלָק לְפָנֶיךָ', 'שְׁטִיפַת מְכוֹנִיּוֹת לְפָנֶיךָ', 'מַסְלוּל מֵרוֹצִים לְפָנֶיךָ', 'אֵין כְּנִיסָה לִמְכוֹנִיּוֹת'],
+    answerIndex: 0,
+    explanationEn: 'The slippery road sign warns drivers that the road can be very slippery, especially when it rains!',
+    explanationHe: 'תמרור כביש חלק מזהיר נהגים שהכביש עלול להיות חלק מאוד, במיוחד כשיורד גשם!',
+    visualType: 'slippery-road-sign'
   }
 ];

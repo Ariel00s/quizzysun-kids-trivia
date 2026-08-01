@@ -7,21 +7,21 @@
   --font-display: "Quicksand", system-ui, sans-serif;
 
   --color-primary: #FF7675; /* Vibrant Coral Red */
-  --color-primary-container: #FFF9E6; /* Cream/Warm Pastel Yellow bg */
+  --color-primary-container: #E8F0FE; /* Cream/Warm Pastel Yellow bg */
   --color-on-primary: #FFFFFF;
 
-  --color-secondary: #FDCB6E; /* Golden Yellow-Orange */
-  --color-secondary-container: #FFEAA7; /* Light Warm Yellow background */
-  --color-on-secondary-container: #D35400; /* Darker warm red-orange */
+  --color-secondary: #74B9FF; /* Golden Yellow-Orange */
+  --color-secondary-container: #D2E3FC; /* Light Warm Yellow background */
+  --color-on-secondary-container: #0984E3; /* Darker warm red-orange */
 
   --color-tertiary: #81ECEC; /* Vibrant Cyan-Teal Welcome Banner */
   --color-tertiary-container: #006266; /* Deep Dark Teal text */
 
-  --color-background: #FFF9E6; /* Primary warm cream body bg */
+  --color-background: #E8F0FE; /* Primary warm cream body bg */
   --color-surface: #FFFFFF;
-  --color-surface-container: #FFEAA7;
+  --color-surface-container: #D2E3FC;
   --color-surface-container-lowest: #FFFFFF;
-  --color-surface-variant: #FFF9E6;
+  --color-surface-variant: #E8F0FE;
   --color-on-surface-variant: #2D3436;
 
   --color-outline-variant: #74B9FF; /* Pastel Blue */
@@ -31,7 +31,7 @@
   --color-on-primary-fixed: #FFFFFF;
 
   --color-error: #FF7675;
-  --color-error-container: #FFEAA7;
+  --color-error-container: #D2E3FC;
   --color-on-error-container: #D63031;
 }
 
@@ -41,7 +41,7 @@
     box-shadow: 8px 8px 0 0 #0984E3;
   }
   .shadow-chunky-yellow {
-    box-shadow: 8px 8px 0 0 #D35400;
+    box-shadow: 8px 8px 0 0 #0984E3;
   }
   .shadow-chunky-green {
     box-shadow: 8px 8px 0 0 #00B894;
@@ -73,7 +73,7 @@
   }
   .hover-chunky-yellow:hover {
     transform: translateY(-4px);
-    box-shadow: 12px 12px 0 0 #D35400;
+    box-shadow: 12px 12px 0 0 #0984E3;
   }
 
   .hover-chunky-green {

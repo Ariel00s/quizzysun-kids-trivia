@@ -146,13 +146,13 @@ export default function QuizView({
     };
   }, [currentIndex, lang, soundOn]);
 
-  // Move to next question automatically with a 2.5-second timeout
+  // Move to next question automatically with a 3-second timeout
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (hasAnswered) {
       timer = setTimeout(() => {
         handleNextQuestion();
-      }, 2500);
+      }, 3000);
     }
     return () => clearTimeout(timer);
   }, [hasAnswered, currentIndex]);
@@ -296,7 +296,7 @@ export default function QuizView({
     const colors = [
       'bg-[#74B9FF] hover:bg-[#0984E3] text-white border-white/30 shadow-chunky-blue hover-chunky-blue',
       'bg-[#55EFC4] hover:bg-[#00B894] text-white border-white/30 shadow-chunky-green hover-chunky-green',
-      'bg-[#FFEAA7] hover:bg-[#FDCB6E] text-[#D35400] border-white/30 shadow-chunky-yellow hover-chunky-yellow',
+      'bg-[#D2E3FC] hover:bg-[#74B9FF] text-[#0984E3] border-white/30 shadow-chunky-yellow hover-chunky-yellow',
       'bg-[#FF7675] hover:bg-[#D63031] text-white border-white/30 shadow-chunky-red hover-chunky-red'
     ];
     return colors[index % 4];
@@ -333,14 +333,14 @@ export default function QuizView({
         </span>
 
         {/* Thinner progress bar directly inline or neat */}
-        <div className="flex-grow max-w-[140px] sm:max-w-[220px] h-3 bg-slate-100 rounded-full border border-[#FDCB6E] overflow-hidden">
+        <div className="flex-grow max-w-[140px] sm:max-w-[220px] h-3 bg-slate-100 rounded-full border border-[#74B9FF] overflow-hidden">
           <div
             className="h-full bg-[#55EFC4] candy-stripe rounded-full transition-all duration-300"
             style={{ width: `${progressPercentage}%` }}
           />
         </div>
 
-        <span className="text-xs font-bold text-[#D35400] shrink-0 whitespace-nowrap bg-[#FFEAA7]/60 px-2 py-0.5 rounded-full border border-[#FDCB6E]/40">
+        <span className="text-xs font-bold text-[#0984E3] shrink-0 whitespace-nowrap bg-[#D2E3FC]/60 px-2 py-0.5 rounded-full border border-[#74B9FF]/40">
           ⭐ {score} {lang === 'en' ? 'pts' : 'נק׳'}
         </span>
       </div>
@@ -378,7 +378,7 @@ export default function QuizView({
                   className={`px-3 py-1.5 rounded-full border font-bold text-xs flex items-center gap-1 cursor-pointer transition-all hover:scale-110 active:scale-95 shadow-sm ${
                     usedHint
                       ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed'
-                      : 'bg-[#FFEAA7] text-[#D35400] border-[#FDCB6E]'
+                      : 'bg-[#D2E3FC] text-[#0984E3] border-[#74B9FF]'
                   }`}
                   title={lang === 'en' ? 'Get a hint (-0.5 pts)' : 'קבל רמז (-0.5 נקודות)'}
                 >
@@ -409,7 +409,7 @@ export default function QuizView({
 
             {/* Display hint if used */}
             {usedHint && (
-              <div className="mt-4 p-3 bg-[#FFEAA7]/40 border border-[#FDCB6E] rounded-xl text-sm font-bold text-[#D35400] animate-pop max-w-md">
+              <div className="mt-4 p-3 bg-[#D2E3FC]/40 border border-[#74B9FF] rounded-xl text-sm font-bold text-[#0984E3] animate-pop max-w-md">
                 <span>💡 </span>
                 <span>{getHintText()}</span>
               </div>
@@ -484,18 +484,6 @@ export default function QuizView({
                     {lang === 'en' ? currentQuestion.explanationEn : currentQuestion.explanationHe}
                   </p>
                 </div>
-
-                <button
-                  onClick={handleNextQuestion}
-                  className="flex items-center gap-2 px-5 py-2 bg-[#74B9FF] text-white font-headline-md text-lg border-4 border-white/20 rounded-2xl shadow-chunky-blue hover-chunky-blue active:translate-y-1 active:shadow-none hover:scale-105 transition-all cursor-pointer font-black"
-                >
-                  <span>
-                    {currentIndex + 1 < totalQuestions
-                      ? lang === 'en' ? 'Next Question' : 'לשאלה הבאה'
-                      : lang === 'en' ? 'View Results' : 'לצפייה בתוצאות'}
-                  </span>
-                  <ArrowRight className={`w-5 h-5 ${lang === 'he' ? 'rotate-180' : ''}`} />
-                </button>
               </div>
             )}
           </div>

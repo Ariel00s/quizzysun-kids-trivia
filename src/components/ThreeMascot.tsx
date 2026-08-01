@@ -10,7 +10,7 @@ export default function ThreeMascot({ className = '', isCelebrating = false }: T
   // Respecting Kotlin: Modifier.background(Color.LIGHT_GRAY), plus adding rounded borders and playful outline
   return (
     <div 
-      className={`w-full h-full bg-slate-200/80 rounded-3xl overflow-hidden flex items-center justify-center p-1 border-4 border-[#FDCB6E] shadow-inner transition-transform duration-300 ${
+      className={`w-full h-full bg-slate-200/80 rounded-3xl overflow-hidden flex items-center justify-center p-1 border-4 border-[#74B9FF] shadow-inner transition-transform duration-300 ${
         isCelebrating ? 'animate-bounce' : 'hover:scale-102'
       } ${className}`}
     >

@@ -855,5 +855,55 @@ export const GK_8_13_QUESTIONS: Question[] = [
     explanationEn: 'Those long upright ears, round fluffy body, and tiny tail belong perfectly to a rabbit!',
     explanationHe: 'האוזניים הארוכות, הגוף העגלגל והזנב הקטן והחמוד שייכים ללא ספק לארנב!',
     visualType: 'shadow-match'
+  },
+  {
+    id: 'gk-8-story-alice',
+    category: 'GeneralKnowledge',
+    ageGroup: '8-13',
+    questionEn: "In 'Alice in Wonderland', who has a pocket watch and is always running late?",
+    questionHe: "בְּ'עֲלִיסָה בְּאֶרֶץ הַפְּלָאוֹת', לְמִי יֵשׁ שָׁעוֹן כִּיס וְהוּא תָּמִיד מְאַחֵר?",
+    optionsEn: ['The White Rabbit', 'The Mad Hatter', 'The Cheshire Cat', 'The Caterpillar'],
+    optionsHe: ['הָאַרְנָב הַלָּבָן', 'הַכּוֹבְעָן הַמְטֹרָף', 'חֲתוּל צֶ\'שַׁיְר', 'הַזַּחַל'],
+    answerIndex: 0,
+    explanationEn: "The White Rabbit is famous for looking at his pocket watch and saying, 'Oh dear! Oh dear! I shall be too late!'",
+    explanationHe: "הארנב הלבן מפורסם בכך שהוא מביט בשעון הכיס שלו ואומר 'אבוי, אני מאחר!'"
+  },
+  {
+    id: 'gk-8-story-wizard-of-oz',
+    category: 'GeneralKnowledge',
+    ageGroup: '8-13',
+    questionEn: "In 'The Wizard of Oz', what does the Tin Woodman long for?",
+    questionHe: "בְּ'הַקּוֹסֵם מֵאֶרֶץ עוֹץ', מָה מִשְׁתּוֹקֵק אִישׁ הַפַּח לְקַבֵּל?",
+    optionsEn: ['A heart', 'A brain', 'Courage', 'A pair of shoes'],
+    optionsHe: ['לֵב', 'מוֹחַ', 'אֹמֶץ לֵב', 'זוּג נַעֲלַיִם'],
+    answerIndex: 0,
+    explanationEn: 'The Tin Woodman travels to see the Wizard to ask for a heart so he can feel love.',
+    explanationHe: 'איש הפח נוסע לקוסם כדי לבקש לב כדי שיוכל להרגיש אהבה.'
+  },
+  {
+    id: 'gk-8-visual-roundabout',
+    category: 'GeneralKnowledge',
+    ageGroup: '8-13',
+    questionEn: 'Look at the blue circle sign with three circular arrows! What does this sign mean?',
+    questionHe: 'הַבִּיטוּ בַּתַּמְרוּר הָעָגֹל הַכָּחֹל עִם שְׁלֹשֶׁת הַחִצִּים הַסִּיבּוּבִיִּים! מָה מַשְׁמָעוּת תַּמְרוּר זֶה?',
+    optionsEn: ['Roundabout (Traffic circle) ahead', 'No left turn allowed', 'Windy road ahead', 'U-turn is mandatory'],
+    optionsHe: ['מַעְגַּל תְּנוּעָה (כִּכָּר) לְפָנֶיךָ', 'אֲסוּרָה הַפְּנִיָּה שְׂמֹאלָה', 'כְּבִישׁ מְפֻתָּל לְפָנֶיךָ', 'פְּנִיַּת פַּרְסָה הִיא חוֹבָה'],
+    answerIndex: 0,
+    explanationEn: 'The roundabout sign indicates that drivers must enter a traffic circle and travel in the direction of the arrows.',
+    explanationHe: 'תמרור מעגל תנועה מורה לנהגים להיכנס לכיכר ולהתקדם בכיוון החצים.',
+    visualType: 'roundabout-sign'
+  },
+  {
+    id: 'gk-8-visual-no-parking',
+    category: 'GeneralKnowledge',
+    ageGroup: '8-13',
+    questionEn: 'Look at the blue circle sign with a red border and a single diagonal red line! What does it mean?',
+    questionHe: 'הַבִּיטוּ בַּתַּמְרוּר הָעָגֹל הַכָּחֹל עִם הַשּׁוּלַיִם הָאֲדֻמִּים וְהַקַּו הָאֲלַכְסוֹנִי הָאָדֹם הַיָּחִיד! מָה מַשְׁמָעוּת תַּמְרוּר זֶה?',
+    optionsEn: ['No Parking allowed', 'No vehicles allowed', 'Speed limit area', 'Bicycle path ahead'],
+    optionsHe: ['אֲסוּרָה הַחֲנִיָּה', 'אֲסוּרָה כְּנִיסַת כְּלִי רֶכֶב', 'אֵזוֹר הַגְבָּלַת מְהִירוּת', 'נְתִיב אוֹפַנַּיִם לְפָנֶיךָ'],
+    answerIndex: 0,
+    explanationEn: 'A blue circle with a red diagonal line means No Parking. You are not allowed to park your car here!',
+    explanationHe: 'עיגול כחול עם קו אדום אלכסוני הוא תמרור "אין חניה". אסור להחנות את הרכב במקום זה!',
+    visualType: 'no-parking-sign'
   }
 ];
