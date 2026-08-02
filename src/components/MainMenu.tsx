@@ -27,6 +27,7 @@ interface MainMenuProps {
   onSetActivePlayer: (playerId: string) => void;
   onChangeAvatar?: (playerId: string, newAvatar: string) => void;
   onDeletePlayer?: (playerId: string) => void;
+  onChangeGender?: (playerId: string, newGender: 'male' | 'female') => void;
 }
 
 const PRESET_AVATARS = ['🦖', '🦁', '🦄', '🐼', '🐨', '🦊', '🐯', '🐸', '🚀', '⭐', '🌈', '🎨'];
@@ -236,7 +237,8 @@ export default function MainMenu({
   onRegisterPlayer,
   onSetActivePlayer,
   onChangeAvatar,
-  onDeletePlayer
+  onDeletePlayer,
+  onChangeGender
 }: MainMenuProps) {
   const [currentStep, setCurrentStep] = useState<'setup' | 'topics'>('setup');
   const [addingPlayer, setAddingPlayer] = useState<boolean>(false);
@@ -296,6 +298,13 @@ export default function MainMenu({
       next = '5-7';
     }
     onChangeAgeGroup(player.id, next);
+  };
+
+  const handleGenderToggle = (player: Player) => {
+    if (!onChangeGender) return;
+    const current = player.gender || 'male';
+    const next = current === 'male' ? 'female' : 'male';
+    onChangeGender(player.id, next);
   };
 
   const handleSaveInlinePlayer = (name: string, ageGroup: AgeGroup, avatar: string, profilePic: string | null, gender: 'male' | 'female') => {
@@ -549,7 +558,7 @@ export default function MainMenu({
             <div className="w-full">
               <InlineAddPlayerForm
                 lang={lang}
-                onSave={(name, age, avatar, profilePic) => onRegisterPlayer(name, age, avatar, profilePic, false)}
+                onSave={(name, age, avatar, profilePic, gender) => onRegisterPlayer(name, age, avatar, profilePic, gender, false)}
                 onCancel={() => {}}
               />
             </div>
@@ -672,6 +681,19 @@ export default function MainMenu({
                           : activePlayer.ageGroup === '8-13'
                           ? lang === 'en' ? 'Ages 8-13 🚀' : 'גילאי 8-13 🚀'
                           : lang === 'en' ? 'Ages 13+ 🎓' : 'גילאי 13+ 🎓'}
+                      </button>
+                      <button
+                        onClick={() => handleGenderToggle(activePlayer)}
+                        className={`px-2.5 py-0.5 text-[11px] font-black rounded-full border hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-sm ${
+                          activePlayer.gender === 'female'
+                            ? 'bg-pink-100 border-pink-300 text-pink-600'
+                            : 'bg-blue-100 border-blue-300 text-[#0984E3]'
+                        }`}
+                        title={lang === 'en' ? 'Click to change gender' : 'לחץ לשינוי מגדר'}
+                      >
+                        {activePlayer.gender === 'female'
+                          ? lang === 'en' ? 'Girl 🙋‍♀️' : 'בת 🙋‍♀️'
+                          : lang === 'en' ? 'Boy 🙋‍♂️' : 'בן 🙋‍♂️'}
                       </button>
                     </div>
 

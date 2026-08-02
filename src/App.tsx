@@ -59,6 +59,7 @@ export default function App() {
           ...p,
           xp: p.xp || 0,
           level: p.level || 1,
+          gender: (p.gender === 'female' || p.gender === 'male') ? p.gender : 'female'
         }));
         setPlayers(validatedPlayers);
       }
@@ -345,6 +346,30 @@ export default function App() {
     }
   };
 
+  const handleChangeGender = (playerId: string, newGender: 'male' | 'female') => {
+    const updatedPlayers = players.map((p) => {
+      if (p.id === playerId) {
+        return {
+          ...p,
+          gender: newGender
+        };
+      }
+      return p;
+    });
+    savePlayers(updatedPlayers);
+
+    if (soundOn) {
+      try {
+        const textEn = `Gender changed to ${newGender === 'female' ? 'girl' : 'boy'}`;
+        const textHe = `המגדר שונה ל${newGender === 'female' ? 'נקבה' : 'זכר'}`;
+        const utterance = new SpeechSynthesisUtterance(lang === 'en' ? textEn : textHe);
+        utterance.lang = lang === 'he' ? 'he-IL' : 'en-US';
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+      } catch (e) {}
+    }
+  };
+
   const handleChangeAvatar = (playerId: string, newAvatar: string) => {
     const updatedPlayers = players.map((p) => {
       if (p.id === playerId) {
@@ -562,6 +587,7 @@ export default function App() {
               onRegisterPlayer={handleRegisterPlayer}
               onSetActivePlayer={handleSelectActivePlayer}
               onDeletePlayer={handleDeletePlayer}
+              onChangeGender={handleChangeGender}
             />
           </motion.div>
         );
