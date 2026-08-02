@@ -636,21 +636,21 @@ export default function VersusQuizView({
               const isCorrectAnswer = originalIdx === currentQuestion.answerIndex;
               
               const colors = [
-                'bg-gradient-to-r from-[#74B9FF] to-[#0984E3] text-white border-white/30 shadow-[0_5px_0_0_#0652DD] hover:shadow-[0_3px_0_0_#0652DD] hover:translate-y-0.5 active:translate-y-1 active:shadow-none',
-                'bg-gradient-to-r from-[#55EFC4] to-[#00B894] text-white border-white/30 shadow-[0_5px_0_0_#008060] hover:shadow-[0_3px_0_0_#008060] hover:translate-y-0.5 active:translate-y-1 active:shadow-none',
-                'bg-gradient-to-r from-[#FFEAA7] to-[#F1C40F] text-[#7F5F00] border-white/30 shadow-[0_5px_0_0_#D97706] hover:shadow-[0_3px_0_0_#D97706] hover:translate-y-0.5 active:translate-y-1 active:shadow-none',
-                'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border-white/30 shadow-[0_5px_0_0_#B31B1B] hover:shadow-[0_3px_0_0_#B31B1B] hover:translate-y-0.5 active:translate-y-1 active:shadow-none'
+                'bg-gradient-to-r from-[#74B9FF] to-[#0984E3] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(9,132,227,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(9,132,227,0.45)] hover:-translate-y-0.5 active:scale-98 active:translate-y-0 transition-all duration-150',
+                'bg-gradient-to-r from-[#55EFC4] to-[#00B894] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(0,184,148,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(0,184,148,0.45)] hover:-translate-y-0.5 active:scale-98 active:translate-y-0 transition-all duration-150',
+                'bg-gradient-to-r from-[#FFC048] to-[#FF9F43] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(255,159,67,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(255,159,67,0.45)] hover:-translate-y-0.5 active:scale-98 active:translate-y-0 transition-all duration-150',
+                'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(214,48,49,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(214,48,49,0.45)] hover:-translate-y-0.5 active:scale-98 active:translate-y-0 transition-all duration-150'
               ];
               let btnClass = colors[idx % 4];
               
               if (isSelected) {
-                btnClass = 'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border-white/40 shadow-[0_3px_0_0_#B31B1B] scale-102';
+                btnClass = 'bg-gradient-to-r from-[#FF9F43] to-[#EE5A24] text-white border border-white/40 shadow-[0_12px_20px_-4px_rgba(238,90,36,0.4)] scale-102 transition-all';
               }
               if (hasAnswered) {
                 if (isCorrectAnswer) {
-                  btnClass = 'bg-gradient-to-r from-[#55EFC4] to-[#00B894] text-white border-white/40 shadow-[0_3px_0_0_#008060] scale-102';
+                  btnClass = 'bg-gradient-to-r from-[#55EFC4] to-[#00B894] text-white border border-white/40 shadow-[0_12px_20px_-4px_rgba(0,184,148,0.4)] scale-102 transition-all';
                 } else if (isSelected) {
-                  btnClass = 'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border-white/40 shadow-[0_3px_0_0_#B31B1B] opacity-60 scale-98';
+                  btnClass = 'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border border-white/40 shadow-[0_8px_16px_-4px_rgba(214,48,49,0.3)] opacity-60 scale-98 transition-all';
                 } else {
                   btnClass = 'opacity-40 pointer-events-none';
                 }

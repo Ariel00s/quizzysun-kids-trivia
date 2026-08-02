@@ -185,7 +185,7 @@ export default function RegisterPlayer({ onRegister, onCancel, lang, onOpenSetti
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 py-3 bg-white text-on-surface-variant font-headline-md text-lg border-4 border-[#74B9FF] rounded-xl hover-chunky-blue shadow-chunky-blue active:translate-y-1 active:shadow-none transition-all cursor-pointer text-center font-bold"
+              className="flex-1 py-3 bg-slate-100 text-slate-700 font-bold text-lg rounded-xl border border-slate-200 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.1)] hover:bg-slate-200 hover:-translate-y-0.5 active:scale-98 active:translate-y-0 transition-all duration-150 cursor-pointer text-center"
             >
               {lang === 'en' ? 'Cancel' : 'ביטול'}
             </button>
@@ -194,10 +194,10 @@ export default function RegisterPlayer({ onRegister, onCancel, lang, onOpenSetti
           <button
             type="submit"
             disabled={!name.trim()}
-            className={`flex-1 py-3 font-headline-md text-lg border-4 rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer font-bold ${
+            className={`flex-1 py-3 font-headline-md text-lg rounded-xl border transition-all flex items-center justify-center gap-1 cursor-pointer font-bold duration-150 ${
               name.trim()
-                ? 'bg-secondary-container text-on-secondary-container border-[#74B9FF] shadow-chunky-yellow hover-chunky-yellow'
-                : 'bg-surface-variant text-on-surface-variant border-outline-variant opacity-50 cursor-not-allowed'
+                ? 'bg-gradient-to-r from-[#55EFC4] to-[#00B894] text-white border-white/20 shadow-[0_8px_16px_-4px_rgba(0,184,148,0.3)] hover:from-[#00B894] hover:to-[#55EFC4] hover:shadow-[0_12px_20px_-4px_rgba(0,184,148,0.45)] hover:-translate-y-0.5 active:scale-98 active:translate-y-0'
+                : 'bg-slate-100 text-slate-400 border-slate-200 opacity-50 cursor-not-allowed shadow-none'
             }`}
           >
             <span>{lang === 'en' ? 'Start Journey!' : 'מתחילים במסע!'}</span>
