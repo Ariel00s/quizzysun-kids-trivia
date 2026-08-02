@@ -45,68 +45,72 @@ export default function QuizView({
   // Sound effects & speech synthesis refs
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
 
+  // Unified speech utility with robust Hebrew voice fallback matching
+  const speakText = (text: string, isRateSlower: boolean = false) => {
+    if (!soundOn || typeof window === 'undefined' || !window.speechSynthesis) return null;
+    try {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      const isHe = lang === 'he';
+      utterance.lang = isHe ? 'he-IL' : 'en-US';
+      utterance.rate = isRateSlower ? 0.95 : 1.0;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const voice = voices.find(v => v.lang.toLowerCase().includes(isHe ? 'he' : 'en')) ||
+                    voices.find(v => v.lang.toLowerCase().startsWith(isHe ? 'he' : 'en'));
+      if (voice) {
+        utterance.voice = voice;
+      }
+      window.speechSynthesis.speak(utterance);
+      return utterance;
+    } catch (err) {
+      console.warn('Speech synthesis failed:', err);
+      return null;
+    }
+  };
+
+  // Pre-load speech synthesis voices to prevent first-time voice load silence
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      window.speechSynthesis.getVoices();
+      const handleVoicesChanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+      window.speechSynthesis.addEventListener('voiceschanged', handleVoicesChanged);
+      return () => {
+        window.speechSynthesis.removeEventListener('voiceschanged', handleVoicesChanged);
+      };
+    }
+  }, []);
+
   // Narrate current question & options
   const narrateQuestion = () => {
     if (!soundOn || !currentQuestion || shuffledIndices.length === 0) return;
     
-    try {
-      window.speechSynthesis.cancel(); // Stop any ongoing speech
-      
-      const isHe = lang === 'he';
-      const questionText = isHe ? currentQuestion.questionHe : currentQuestion.questionEn;
-      const options = isHe ? currentQuestion.optionsHe : currentQuestion.optionsEn;
-      
-      // Build narrated text with options in the shuffled order
-      let textToSpeak = questionText + ". ";
-      shuffledIndices.forEach((originalIdx, index) => {
-        const opt = options[originalIdx];
-        textToSpeak += `${index + 1}. ${opt}. `;
-      });
-      
-      const utterance = new SpeechSynthesisUtterance(textToSpeak);
-      utterance.lang = isHe ? 'he-IL' : 'en-US';
-      
-      // Try to find native voice
-      const voices = window.speechSynthesis.getVoices();
-      const voice = voices.find(v => v.lang.startsWith(isHe ? 'he' : 'en'));
-      if (voice) {
-        utterance.voice = voice;
-      }
-      
-      utterance.rate = 0.95; // Slightly slower for kids
-      window.speechSynthesis.speak(utterance);
+    const isHe = lang === 'he';
+    const questionText = isHe ? currentQuestion.questionHe : currentQuestion.questionEn;
+    const options = isHe ? currentQuestion.optionsHe : currentQuestion.optionsEn;
+    
+    // Build narrated text with options in the shuffled order
+    let textToSpeak = questionText + ". ";
+    shuffledIndices.forEach((originalIdx, index) => {
+      const opt = options[originalIdx];
+      textToSpeak += `${index + 1}. ${opt}. `;
+    });
+    
+    const utterance = speakText(textToSpeak, true);
+    if (utterance) {
       speechRef.current = utterance;
-    } catch (err) {
-      console.warn('Speech synthesis failed:', err);
     }
   };
 
   // Speak feedback
   const speakFeedback = (isCorrect: boolean) => {
     if (!soundOn) return;
-    
-    try {
-      window.speechSynthesis.cancel();
-      const isHe = lang === 'he';
-      const gender = activePlayer.gender || 'male';
-      
-      const phrases = getEncouragingPhrases(lang, gender, isCorrect);
-      const phrase = phrases[Math.floor(Math.random() * phrases.length)];
-
-      const utterance = new SpeechSynthesisUtterance(phrase);
-      utterance.lang = isHe ? 'he-IL' : 'en-US';
-      
-      const voices = window.speechSynthesis.getVoices();
-      const voice = voices.find(v => v.lang.startsWith(isHe ? 'he' : 'en'));
-      if (voice) {
-        utterance.voice = voice;
-      }
-
-      utterance.rate = 1.0;
-      window.speechSynthesis.speak(utterance);
-    } catch (err) {
-      console.warn('Speech synthesis failed:', err);
-    }
+    const gender = activePlayer.gender || 'male';
+    const phrases = getEncouragingPhrases(lang, gender, isCorrect);
+    const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+    speakText(phrase, false);
   };
 
   // Reset local states and shuffle indices on question change
@@ -175,13 +179,8 @@ export default function QuizView({
 
       // Speak the AI explanation if sound is activated
       if (soundOn) {
-        try {
-          const cleanText = data.text.replace(/[*#_`]/g, '');
-          const utterance = new SpeechSynthesisUtterance(cleanText.slice(0, 300)); // Play reasonable length
-          utterance.lang = lang === 'he' ? 'he-IL' : 'en-US';
-          window.speechSynthesis.cancel();
-          window.speechSynthesis.speak(utterance);
-        } catch (e) {}
+        const cleanText = data.text.replace(/[*#_`]/g, '');
+        speakText(cleanText.slice(0, 300), false);
       }
     } catch (err: any) {
       setExplainError(err.message || 'An error occurred.');
@@ -225,23 +224,8 @@ export default function QuizView({
     setUsedHint(true);
 
     if (soundOn) {
-      try {
-        window.speechSynthesis.cancel();
-        const hintText = getHintText();
-        const utterance = new SpeechSynthesisUtterance(hintText);
-        utterance.lang = lang === 'he' ? 'he-IL' : 'en-US';
-        
-        const voices = window.speechSynthesis.getVoices();
-        const voice = voices.find(v => v.lang.startsWith(lang === 'he' ? 'he' : 'en'));
-        if (voice) {
-          utterance.voice = voice;
-        }
-        
-        utterance.rate = 0.95;
-        window.speechSynthesis.speak(utterance);
-      } catch (err) {
-        console.warn('Speech synthesis failed for hint:', err);
-      }
+      const hintText = getHintText();
+      speakText(hintText, true);
     }
   };
 

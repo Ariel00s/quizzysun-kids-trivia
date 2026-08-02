@@ -137,47 +137,72 @@ export default function VersusQuizView({
 
   const currentQuestion = getCurrentQuestion();
 
+  // Unified speech helper with robust Hebrew voice matching
+  const speakText = (text: string, isRateSlower: boolean = false) => {
+    if (!soundOn || typeof window === 'undefined' || !window.speechSynthesis) return null;
+    try {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      const isHe = lang === 'he';
+      utterance.lang = isHe ? 'he-IL' : 'en-US';
+      utterance.rate = isRateSlower ? 0.95 : 1.0;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const voice = voices.find(v => v.lang.toLowerCase().includes(isHe ? 'he' : 'en')) ||
+                    voices.find(v => v.lang.toLowerCase().startsWith(isHe ? 'he' : 'en'));
+      if (voice) {
+        utterance.voice = voice;
+      }
+      window.speechSynthesis.speak(utterance);
+      return utterance;
+    } catch (err) {
+      console.warn('Speech synthesis failed:', err);
+      return null;
+    }
+  };
+
+  // Pre-load speech synthesis voices
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      window.speechSynthesis.getVoices();
+      const handleVoicesChanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+      window.speechSynthesis.addEventListener('voiceschanged', handleVoicesChanged);
+      return () => {
+        window.speechSynthesis.removeEventListener('voiceschanged', handleVoicesChanged);
+      };
+    }
+  }, []);
+
   // Narrate current question & options
   const narrateQuestion = () => {
     if (!soundOn || !currentQuestion || shuffledIndices.length === 0) return;
-    try {
-      window.speechSynthesis.cancel();
-      const isHe = lang === 'he';
-      const questionText = isHe ? currentQuestion.questionHe : currentQuestion.questionEn;
-      const options = isHe ? currentQuestion.optionsHe : currentQuestion.optionsEn;
+    const isHe = lang === 'he';
+    const questionText = isHe ? currentQuestion.questionHe : currentQuestion.questionEn;
+    const options = isHe ? currentQuestion.optionsHe : currentQuestion.optionsEn;
 
-      let textToSpeak = questionText + ". ";
-      shuffledIndices.forEach((originalIdx, idx) => {
-        const opt = options[originalIdx];
-        textToSpeak += `${idx + 1}. ${opt}. `;
-      });
+    let textToSpeak = questionText + ". ";
+    shuffledIndices.forEach((originalIdx, idx) => {
+      const opt = options[originalIdx];
+      textToSpeak += `${idx + 1}. ${opt}. `;
+    });
 
-      const utterance = new SpeechSynthesisUtterance(textToSpeak);
-      utterance.lang = isHe ? 'he-IL' : 'en-US';
-      utterance.rate = 0.95;
-      window.speechSynthesis.speak(utterance);
+    const utterance = speakText(textToSpeak, true);
+    if (utterance) {
       speechRef.current = utterance;
-    } catch (e) {
-      console.warn(e);
     }
   };
 
   // Speak short feedback
   const speakFeedbackText = (isCorrect: boolean) => {
     if (!soundOn) return;
-    try {
-      window.speechSynthesis.cancel();
-      const isHe = lang === 'he';
-      const currentPlayer = activeTurn === 1 ? player1 : player2;
-      const gender = currentPlayer.gender || 'male';
-      
-      const phrases = getEncouragingPhrases(lang, gender, isCorrect);
-      const text = phrases[Math.floor(Math.random() * phrases.length)];
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = isHe ? 'he-IL' : 'en-US';
-      window.speechSynthesis.speak(utterance);
-    } catch (e) {}
+    const currentPlayer = activeTurn === 1 ? player1 : player2;
+    const gender = currentPlayer.gender || 'male';
+    
+    const phrases = getEncouragingPhrases(lang, gender, isCorrect);
+    const text = phrases[Math.floor(Math.random() * phrases.length)];
+    speakText(text, false);
   };
 
   // Automatically speak when question changes & turn started & indices shuffled
@@ -226,14 +251,9 @@ export default function VersusQuizView({
 
   // Finish a player's timed turn
   const handleTimeAttackTurnFinished = () => {
-    window.speechSynthesis.cancel();
     if (soundOn) {
-      try {
-        const text = lang === 'en' ? "Time is up!" : "תם הזמן!";
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = lang === 'he' ? 'he-IL' : 'en-US';
-        window.speechSynthesis.speak(utterance);
-      } catch (e) {}
+      const text = lang === 'en' ? "Time is up!" : "תם הזמן!";
+      speakText(text, false);
     }
 
     setSelectedAnswerIndex(null);
