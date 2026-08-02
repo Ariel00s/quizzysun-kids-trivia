@@ -612,7 +612,21 @@ export default function VersusQuizView({
             </p>
           </div>
 
-          <QuestionVisual question={currentQuestion} lang={lang} />
+          {!hasAnswered ? (
+            <QuestionVisual question={currentQuestion} lang={lang} />
+          ) : (
+            modeStyle === 'turn' && (
+              <div className="w-full max-w-xl p-3 rounded-2xl border-4 text-center bg-emerald-50 border-[#55EFC4] text-emerald-900 my-2 animate-pop mx-auto">
+                <h4 className="font-black text-sm mb-1 flex items-center justify-center gap-1">
+                  <span>💡</span>
+                  <span>{lang === 'en' ? 'Did you know?' : 'הידעתם?'}</span>
+                </h4>
+                <p className="text-xs font-bold leading-normal">
+                  {lang === 'he' ? currentQuestion.explanationHe : currentQuestion.explanationEn}
+                </p>
+              </div>
+            )
+          )}
 
           {/* Options grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-1">
@@ -656,21 +670,6 @@ export default function VersusQuizView({
               );
             })}
           </div>
-
-          {/* Explanation Banner (Visible on answer in Turn Mode) */}
-          {hasAnswered && modeStyle === 'turn' && (
-            <div className="p-4 bg-blue-50 border-2 border-[#74B9FF] rounded-2xl text-xs md:text-sm text-slate-700 leading-relaxed animate-fade-in flex items-start gap-2.5">
-              <AlertCircle className="w-5 h-5 text-[#0984E3] shrink-0 mt-0.5" />
-              <div>
-                <p className="font-extrabold text-[#0984E3] mb-1">
-                  {lang === 'en' ? 'Did You Know?' : 'הידעתם?'}
-                </p>
-                <p className="font-medium">
-                  {lang === 'he' ? currentQuestion.explanationHe : currentQuestion.explanationEn}
-                </p>
-              </div>
-            </div>
-          )}
 
 
 

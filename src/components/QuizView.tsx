@@ -399,11 +399,23 @@ export default function QuizView({
               {lang === 'en' ? currentQuestion.questionEn : currentQuestion.questionHe}
             </h2>
 
-            <QuestionVisual question={currentQuestion} lang={lang} />
+            {!hasAnswered ? (
+              <QuestionVisual question={currentQuestion} lang={lang} />
+            ) : (
+              <div className="w-full max-w-xl p-3 rounded-2xl border-4 text-center bg-emerald-50 border-[#55EFC4] text-emerald-900 my-2 animate-pop mx-auto">
+                <h4 className="font-black text-sm mb-1 flex items-center justify-center gap-1">
+                  <span>💡</span>
+                  <span>{lang === 'en' ? 'Did you know?' : 'הידעתם?'}</span>
+                </h4>
+                <p className="text-xs font-bold leading-normal">
+                  {lang === 'en' ? currentQuestion.explanationEn : currentQuestion.explanationHe}
+                </p>
+              </div>
+            )}
 
-            {/* Display hint if used */}
-            {usedHint && (
-              <div className="mt-4 p-3 bg-[#D2E3FC]/40 border border-[#74B9FF] rounded-xl text-sm font-bold text-[#0984E3] animate-pop max-w-md">
+            {/* Display hint if used and not answered */}
+            {usedHint && !hasAnswered && (
+              <div className="mt-3.5 p-2 bg-[#D2E3FC]/40 border border-[#74B9FF] rounded-xl text-xs font-bold text-[#0984E3] animate-pop max-w-md mx-auto">
                 <span>💡 </span>
                 <span>{getHintText()}</span>
               </div>
@@ -449,37 +461,6 @@ export default function QuizView({
                 </button>
               );
             })}
-          </div>
-
-          {/* Action / Explanation Box */}
-          <div className="w-full flex flex-col items-center gap-2 mt-2">
-            {hasAnswered && (
-              <div className="w-full flex flex-col items-center gap-3">
-                {/* Explanation box */}
-                <div className={`w-full p-3 rounded-xl border-4 text-center animate-pop ${
-                  showFeedback === 'correct'
-                    ? 'bg-emerald-50 border-[#55EFC4] text-emerald-900'
-                    : 'bg-rose-50 border-[#FF7675] text-[#D63031]'
-                }`}>
-                  <h4 className="font-bold text-sm mb-1 flex items-center justify-center gap-1">
-                    {showFeedback === 'correct' ? (
-                      <>
-                        <span>🌟</span>
-                        <span>{lang === 'en' ? 'Awesome explanation!' : 'הסבר קצר ומעניין!'}</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>💡</span>
-                        <span>{lang === 'en' ? 'Did you know?' : 'הידעתם?'}</span>
-                      </>
-                    )}
-                  </h4>
-                  <p className="text-xs font-bold leading-normal">
-                    {lang === 'en' ? currentQuestion.explanationEn : currentQuestion.explanationHe}
-                  </p>
-                </div>
-              </div>
-            )}
           </div>
         </motion.div>
       </AnimatePresence>

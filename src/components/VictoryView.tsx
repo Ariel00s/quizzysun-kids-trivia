@@ -91,7 +91,7 @@ export default function VictoryView({
       </h1>
 
       {/* Interactive 3D Three.js Mascot */}
-      <div className="w-32 h-32 md:w-48 md:h-48 select-none z-10 shrink-0">
+      <div className="w-20 h-20 md:w-28 md:h-28 select-none z-10 shrink-0">
         <ThreeMascot isCelebrating={true} />
       </div>
 

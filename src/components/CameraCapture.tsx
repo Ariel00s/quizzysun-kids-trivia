@@ -91,7 +91,7 @@ export default function CameraCapture({ onPhotoCaptured, lang }: CameraCapturePr
 
   return (
     <div className="flex flex-col items-center gap-4 w-full">
-      <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-primary shadow-[0_6px_0_0_rgba(0,38,132,1)] bg-surface-variant overflow-hidden flex items-center justify-center">
+      <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-primary shadow-[0_4px_0_0_rgba(0,38,132,1)] bg-surface-variant overflow-hidden flex items-center justify-center">
         {capturedPhoto ? (
           <img
             src={capturedPhoto}
