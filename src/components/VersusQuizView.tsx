@@ -635,15 +635,24 @@ export default function VersusQuizView({
               const isSelected = selectedAnswerIndex === idx;
               const isCorrectAnswer = originalIdx === currentQuestion.answerIndex;
               
-              let btnClass = 'bg-white border-slate-200 text-slate-800 hover:bg-slate-50 hover:border-[#74B9FF]';
+              const colors = [
+                'bg-gradient-to-r from-[#74B9FF] to-[#0984E3] text-white border-white/30 shadow-[0_5px_0_0_#0652DD] hover:shadow-[0_3px_0_0_#0652DD] hover:translate-y-0.5 active:translate-y-1 active:shadow-none',
+                'bg-gradient-to-r from-[#55EFC4] to-[#00B894] text-white border-white/30 shadow-[0_5px_0_0_#008060] hover:shadow-[0_3px_0_0_#008060] hover:translate-y-0.5 active:translate-y-1 active:shadow-none',
+                'bg-gradient-to-r from-[#FFEAA7] to-[#F1C40F] text-[#7F5F00] border-white/30 shadow-[0_5px_0_0_#D97706] hover:shadow-[0_3px_0_0_#D97706] hover:translate-y-0.5 active:translate-y-1 active:shadow-none',
+                'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border-white/30 shadow-[0_5px_0_0_#B31B1B] hover:shadow-[0_3px_0_0_#B31B1B] hover:translate-y-0.5 active:translate-y-1 active:shadow-none'
+              ];
+              let btnClass = colors[idx % 4];
               
+              if (isSelected) {
+                btnClass = 'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border-white/40 shadow-[0_3px_0_0_#B31B1B] scale-102';
+              }
               if (hasAnswered) {
                 if (isCorrectAnswer) {
-                  btnClass = 'bg-emerald-100 border-emerald-500 text-emerald-800 scale-102';
+                  btnClass = 'bg-gradient-to-r from-[#55EFC4] to-[#00B894] text-white border-white/40 shadow-[0_3px_0_0_#008060] scale-102';
                 } else if (isSelected) {
-                  btnClass = 'bg-rose-100 border-rose-500 text-rose-800 scale-98';
+                  btnClass = 'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border-white/40 shadow-[0_3px_0_0_#B31B1B] opacity-60 scale-98';
                 } else {
-                  btnClass = 'bg-slate-50 border-slate-200 text-slate-400 opacity-60';
+                  btnClass = 'opacity-40 pointer-events-none';
                 }
               }
 

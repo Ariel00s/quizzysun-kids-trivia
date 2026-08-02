@@ -285,12 +285,11 @@ export default function QuizView({
   };
 
   const getButtonColor = (index: number) => {
-    // Colors mapping for answers: Blue, Green, Yellow, Red
     const colors = [
-      'bg-[#74B9FF] hover:bg-[#0984E3] text-white border-white/30 shadow-chunky-blue hover-chunky-blue',
-      'bg-[#55EFC4] hover:bg-[#00B894] text-white border-white/30 shadow-chunky-green hover-chunky-green',
-      'bg-[#D2E3FC] hover:bg-[#74B9FF] text-[#0984E3] border-white/30 shadow-chunky-yellow hover-chunky-yellow',
-      'bg-[#FF7675] hover:bg-[#D63031] text-white border-white/30 shadow-chunky-red hover-chunky-red'
+      'bg-gradient-to-r from-[#74B9FF] to-[#0984E3] text-white border-white/30 shadow-[0_5px_0_0_#0652DD] hover:shadow-[0_3px_0_0_#0652DD] hover:translate-y-0.5 active:translate-y-1 active:shadow-none',
+      'bg-gradient-to-r from-[#55EFC4] to-[#00B894] text-white border-white/30 shadow-[0_5px_0_0_#008060] hover:shadow-[0_3px_0_0_#008060] hover:translate-y-0.5 active:translate-y-1 active:shadow-none',
+      'bg-gradient-to-r from-[#FFEAA7] to-[#F1C40F] text-[#7F5F00] border-white/30 shadow-[0_5px_0_0_#D97706] hover:shadow-[0_3px_0_0_#D97706] hover:translate-y-0.5 active:translate-y-1 active:shadow-none',
+      'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border-white/30 shadow-[0_5px_0_0_#B31B1B] hover:shadow-[0_3px_0_0_#B31B1B] hover:translate-y-0.5 active:translate-y-1 active:shadow-none'
     ];
     return colors[index % 4];
   };
@@ -431,13 +430,13 @@ export default function QuizView({
               
               let stateStyle = getButtonColor(idx);
               if (isSelected) {
-                stateStyle = 'bg-[#FF7675] text-white border-white/20 shadow-sm scale-102';
+                stateStyle = 'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border-white/40 shadow-[0_3px_0_0_#B31B1B] scale-102';
               }
               if (hasAnswered) {
                 if (originalIdx === currentQuestion.answerIndex) {
-                  stateStyle = 'bg-[#55EFC4] text-white border-white/20 shadow-sm scale-102';
+                  stateStyle = 'bg-gradient-to-r from-[#55EFC4] to-[#00B894] text-white border-white/40 shadow-[0_3px_0_0_#008060] scale-102';
                 } else if (isSelected) {
-                  stateStyle = 'bg-[#FF7675] text-white border-white/20 shadow-sm opacity-60';
+                  stateStyle = 'bg-gradient-to-r from-[#FF7675] to-[#D63031] text-white border-white/40 shadow-[0_3px_0_0_#B31B1B] opacity-60 scale-98';
                 } else {
                   stateStyle = 'opacity-40 pointer-events-none';
                 }

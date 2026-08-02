@@ -401,19 +401,19 @@ export default function MainMenu({
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 w-full max-w-4xl mx-auto">
             {([
-              { id: 'Geography', labelEn: 'Geography', labelHe: 'גאוגרפיה', emoji: '🌍', bgColor: 'bg-blue-50/80 border-[#74B9FF] text-[#0984E3]' },
-              { id: 'Animals', labelEn: 'Animals', labelHe: 'בעלי חיים', emoji: '🦁', bgColor: 'bg-amber-50/80 border-[#74B9FF] text-[#0984E3]' },
-              { id: 'Math', labelEn: 'Math', labelHe: 'חשבון', emoji: '🔢', bgColor: 'bg-emerald-50/80 border-[#55EFC4] text-[#00B894]' },
-              { id: 'History', labelEn: 'History', labelHe: 'היסטוריה', emoji: '📜', bgColor: 'bg-rose-50/80 border-[#FF7675] text-[#D63031]' },
-              { id: 'Science', labelEn: 'Science', labelHe: 'מדע', emoji: '🧪', bgColor: 'bg-teal-50/80 border-[#55EFC4] text-[#00A86B]' },
-              { id: 'Space', labelEn: 'Space', labelHe: 'חלל', emoji: '🚀', bgColor: 'bg-purple-50/80 border-[#a29bfe] text-[#6C5CE7]' },
-              { id: 'Stories', labelEn: 'Stories & Tales', labelHe: 'סיפורים ואגדות', emoji: '🏰', bgColor: 'bg-rose-50/80 border-rose-300 text-rose-600' },
-              { id: 'GeneralKnowledge', labelEn: 'General Info', labelHe: 'ידע כללי', emoji: '💡', bgColor: 'bg-amber-50/40 border-[#D2E3FC] text-[#E17055]' },
+              { id: 'Geography', labelEn: 'Geography', labelHe: 'גאוגרפיה', emoji: '🌍', bgColor: 'bg-gradient-to-br from-[#E8F0FE] to-[#D2E3FC] border-[#74B9FF] text-[#0984E3] shadow-[0_5px_0_0_#74B9FF] hover:shadow-[0_3px_0_0_#74B9FF] hover:translate-y-0.5' },
+              { id: 'Animals', labelEn: 'Animals', labelHe: 'בעלי חיים', emoji: '🦁', bgColor: 'bg-gradient-to-br from-[#FFEAA7] to-[#FFEAA7]/60 border-[#F1C40F] text-[#B7791F] shadow-[0_5px_0_0_#F1C40F] hover:shadow-[0_3px_0_0_#F1C40F] hover:translate-y-0.5' },
+              { id: 'Math', labelEn: 'Math', labelHe: 'חשבון', emoji: '🔢', bgColor: 'bg-gradient-to-br from-[#E0F7FA] to-[#B2EBF2] border-[#00B894] text-[#006241] shadow-[0_5px_0_0_#00B894] hover:shadow-[0_3px_0_0_#00B894] hover:translate-y-0.5' },
+              { id: 'History', labelEn: 'History', labelHe: 'היסטוריה', emoji: '📜', bgColor: 'bg-gradient-to-br from-[#FFEBEE] to-[#FFCDD2] border-[#FF7675] text-[#C0392B] shadow-[0_5px_0_0_#FF7675] hover:shadow-[0_3px_0_0_#FF7675] hover:translate-y-0.5' },
+              { id: 'Science', labelEn: 'Science', labelHe: 'מדע', emoji: '🧪', bgColor: 'bg-gradient-to-br from-[#E0F2F1] to-[#B2DFDB] border-[#00A86B] text-[#004D40] shadow-[0_5px_0_0_#00A86B] hover:shadow-[0_3px_0_0_#00A86B] hover:translate-y-0.5' },
+              { id: 'Space', labelEn: 'Space', labelHe: 'חלל', emoji: '🚀', bgColor: 'bg-gradient-to-br from-[#F3E8FF] to-[#E9D5FF] border-[#6C5CE7] text-[#4A3780] shadow-[0_5px_0_0_#6C5CE7] hover:shadow-[0_3px_0_0_#6C5CE7] hover:translate-y-0.5' },
+              { id: 'Stories', labelEn: 'Stories & Tales', labelHe: 'סיפורים ואגדות', emoji: '🏰', bgColor: 'bg-gradient-to-br from-[#FCE7F3] to-[#FBCFE8] border-pink-400 text-pink-700 shadow-[0_5px_0_0_#EC4899] hover:shadow-[0_3px_0_0_#EC4899] hover:translate-y-0.5' },
+              { id: 'GeneralKnowledge', labelEn: 'General Info', labelHe: 'ידע כללי', emoji: '💡', bgColor: 'bg-gradient-to-br from-[#FEF3C7] to-[#FDE68A] border-amber-400 text-amber-700 shadow-[0_5px_0_0_#D97706] hover:shadow-[0_3px_0_0_#D97706] hover:translate-y-0.5' },
             ] as const).map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => handleCategoryPlay(cat.id)}
-                className={`p-3.5 rounded-2xl border-2 flex items-center justify-start sm:justify-center gap-3 font-black text-xs sm:text-sm md:text-base hover:scale-102 hover:shadow-sm active:translate-y-0.5 transition-all cursor-pointer ${cat.bgColor}`}
+                className={`p-3.5 rounded-2xl border-2 flex items-center justify-start sm:justify-center gap-3 font-black text-xs sm:text-sm md:text-base transition-all duration-150 transform hover:scale-102 active:translate-y-1 active:shadow-none cursor-pointer ${cat.bgColor}`}
               >
                 <span className="text-xl sm:text-2xl shrink-0">{cat.emoji}</span>
                 <span className="truncate">{lang === 'en' ? cat.labelEn : cat.labelHe}</span>
@@ -423,7 +423,7 @@ export default function MainMenu({
             {/* Quick Play combined directly as an attractive tile in the grid to save massive space */}
             <button
               onClick={() => handleCategoryPlay('All')}
-              className="col-span-2 sm:col-span-1 md:col-span-1 p-3.5 bg-[#D2E3FC] text-[#0984E3] font-black text-xs sm:text-sm md:text-base border-2 border-[#74B9FF] rounded-2xl shadow-sm hover:scale-102 active:translate-y-0.5 cursor-pointer flex items-center justify-center gap-2 animate-pulse"
+              className="col-span-2 sm:col-span-1 md:col-span-1 p-3.5 bg-gradient-to-br from-[#74B9FF] to-[#0984E3] text-white font-black text-xs sm:text-sm md:text-base border-2 border-white/20 rounded-2xl shadow-[0_5px_0_0_#0652DD] hover:shadow-[0_3px_0_0_#0652DD] hover:translate-y-0.5 active:translate-y-1 active:shadow-none cursor-pointer flex items-center justify-center gap-2 animate-pulse"
             >
               <span>🎮</span>
               <span>{lang === 'en' ? 'Mixed (All)' : 'משחק מעורב'}</span>
@@ -464,6 +464,7 @@ export default function MainMenu({
                       onClick={() => {
                         if (isUnlocked && onChangeAvatar) {
                           onChangeAvatar(activePlayer.id, item.avatar);
+                          setShowAvatarModal(false);
                         }
                       }}
                       className={`w-12 h-12 rounded-full text-2xl flex items-center justify-center transition-all ${
@@ -870,10 +871,10 @@ export default function MainMenu({
             <div className="flex justify-center mt-4">
               <button
                 onClick={handleContinueToTopics}
-                className={`w-full sm:w-auto px-10 py-4 font-headline-md text-lg md:text-xl border-4 rounded-[24px] cursor-pointer transition-all duration-300 font-black text-center flex items-center justify-center gap-2 ${
+                className={`w-full sm:w-auto px-10 py-4 font-headline-md text-lg md:text-xl border-4 rounded-[24px] cursor-pointer transition-all duration-200 font-black text-center flex items-center justify-center gap-2 transform active:scale-95 active:translate-y-1 ${
                   isSetupValid
-                    ? 'bg-[#55EFC4] text-[#006241] border-[#00B894] shadow-chunky-green hover:scale-103 hover:shadow-chunky-green active:translate-y-1'
-                    : 'bg-slate-100 text-slate-400 border-slate-300 opacity-60'
+                    ? 'bg-gradient-to-r from-[#55EFC4] to-[#00B894] text-white border-white/40 shadow-[0_6px_0_0_#008060] hover:shadow-[0_4px_0_0_#008060] hover:translate-y-0.5'
+                    : 'bg-slate-100 text-slate-400 border-slate-300 opacity-60 cursor-not-allowed shadow-none'
                 }`}
               >
                 <span>{lang === 'en' ? 'Next: Choose Topic ➔' : 'לבחירת נושא המשחק ➔'}</span>
