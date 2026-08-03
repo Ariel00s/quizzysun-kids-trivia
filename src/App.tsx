@@ -8,6 +8,7 @@ import VictoryView from './components/VictoryView';
 import BadgeBook from './components/BadgeBook';
 import Leaderboard from './components/Leaderboard';
 import ThreeMascot from './components/ThreeMascot';
+import happySun from '../assets/Happy SUN.svg';
 import { Users, UserPlus, Trophy, Sparkles, Smile, Volume2, Globe, Heart, Settings, X, RefreshCw, VolumeX } from 'lucide-react';
 import VersusQuizView from './components/VersusQuizView';
 import { DotLottiePlayer } from '@dotlottie/react-player';
@@ -784,15 +785,9 @@ export default function App() {
           onClick={() => setScreen('main-menu')}
           className="flex items-center gap-1.5 sm:gap-2.5 cursor-pointer hover:scale-102 transition-transform select-none shrink-0"
         >
-          {/* Animated sun mascot icon with no border or frame */}
-          <div className="w-7 h-7 sm:w-10 sm:h-10 overflow-hidden shrink-0 flex items-center justify-center">
-            <DotLottiePlayer
-              src="https://lottie.host/0e9049c9-4048-45c7-a36a-6586ef6a4ac9/nrIukPh25y.lottie"
-              autoplay
-              loop
-              speed={3}
-              style={{ width: '100%', height: '100%' }}
-            />
+          {/* Custom brand sun mascot SVG */}
+          <div className="w-8 h-8 sm:w-11 sm:h-11 overflow-hidden shrink-0 flex items-center justify-center">
+            <img src={happySun} alt="QuizzySun Mascot" className="w-full h-full object-contain animate-pulse" />
           </div>
           <h1 className="font-headline-md text-base sm:text-xl md:text-2xl text-white tracking-wide uppercase leading-none font-black shrink-0">
             QuizzySun

@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import CameraCapture from './CameraCapture';
 import { Player, Category, AgeGroup } from '../types';
+import rainbowSvg from '../../assets/Rainbow.svg';
 import { Play, Award, Trophy, UserPlus, Users, Volume2, VolumeX, Globe, Settings, MapPin, Sparkles, RefreshCw, X, Plus, Check, ArrowLeft, Lock, Camera, Smile } from 'lucide-react';
 
 interface MainMenuProps {
@@ -351,7 +352,11 @@ export default function MainMenu({
 
   if (currentStep === 'topics') {
     return (
-      <div className="w-full max-w-5xl flex flex-col items-center gap-3 md:gap-4 animate-pop">
+      <div className="w-full max-w-5xl flex flex-col items-center gap-3 md:gap-4 animate-pop relative">
+        {/* Decorative floating rainbow at top left */}
+        <div className="absolute -top-6 -left-6 w-20 h-20 opacity-15 pointer-events-none -z-10 select-none animate-pulse">
+          <img src={rainbowSvg} alt="Rainbow decoration" className="w-full h-full object-contain" />
+        </div>
         
         {/* Navigation back and active match summary */}
         <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 bg-white/70 backdrop-blur-sm border-2 border-[#74B9FF]/50 rounded-3xl p-3.5 shadow-sm">
@@ -497,7 +502,11 @@ export default function MainMenu({
 }
 
   return (
-    <div className="w-full max-w-5xl flex flex-col items-center gap-3 animate-pop">
+    <div className="w-full max-w-5xl flex flex-col items-center gap-3 animate-pop relative">
+      {/* Decorative floating rainbow at top left */}
+      <div className="absolute -top-6 -left-6 w-20 h-20 opacity-15 pointer-events-none -z-10 select-none animate-pulse">
+        <img src={rainbowSvg} alt="Rainbow decoration" className="w-full h-full object-contain" />
+      </div>
       
       {/* Frameless Integrated Panel */}
       <div className="w-full relative overflow-hidden z-10 animate-pop">

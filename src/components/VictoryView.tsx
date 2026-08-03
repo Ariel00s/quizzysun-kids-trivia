@@ -3,6 +3,8 @@ import { Player, Badge } from '../types';
 import { BADGES } from '../questions';
 import { Award, Trophy, Star, Home, Sparkles, CheckCircle2 } from 'lucide-react';
 import ThreeMascot from './ThreeMascot';
+import fireworksSvg from '../../assets/Fireworks.svg';
+import congratulationSvg from '../../assets/congratulation.svg';
 
 interface VictoryViewProps {
   activePlayer: Player;
@@ -62,6 +64,11 @@ export default function VictoryView({
   return (
     <div className="w-full max-w-xl flex flex-col items-center gap-4 relative">
       
+      {/* Fireworks Background Decoration */}
+      <div className="absolute inset-0 -z-10 opacity-20 pointer-events-none mix-blend-multiply scale-110 overflow-hidden select-none">
+        <img src={fireworksSvg} className="w-full h-full object-contain animate-pulse" />
+      </div>
+
       {/* Confetti overlay */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-40">
         {particles.map((p) => (
@@ -89,6 +96,9 @@ export default function VictoryView({
           ? lang === 'en' ? 'PERFECT SCORE! 🏆' : 'ציון מושלם! 🏆'
           : lang === 'en' ? 'GREAT JOB! 🌟' : 'עבודה מצוינת! 🌟'}
       </h1>
+
+      {/* Decorative Congratulatory Illustration */}
+      <img src={congratulationSvg} className="w-40 h-auto select-none mt-1 animate-bounce shrink-0" style={{ animationDuration: '4s' }} alt="Congratulation" />
 
       {/* Interactive 3D Three.js Mascot */}
       <div className="w-20 h-20 md:w-28 md:h-28 select-none z-10 shrink-0">
