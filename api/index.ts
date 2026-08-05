@@ -207,30 +207,59 @@ You must return a JSON response only, with these fields:
 Please analyze the attached image and check if it successfully shows what is requested.
 Return a JSON object conforming to the instruction.`;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash", // Excellent for vision and fast responses
-      contents: [
-        prompt,
-        {
-          inlineData: {
-            data: base64Data,
-            mimeType: mimeType
+    let response;
+    try {
+      response = await ai.models.generateContent({
+        model: "gemini-3.5-flash", // Primary model
+        contents: [
+          prompt,
+          {
+            inlineData: {
+              data: base64Data,
+              mimeType: mimeType
+            }
+          }
+        ],
+        config: {
+          systemInstruction,
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "OBJECT",
+            properties: {
+              isCorrect: { type: "BOOLEAN" },
+              explanation: { type: "STRING" }
+            },
+            required: ["isCorrect", "explanation"]
           }
         }
-      ],
-      config: {
-        systemInstruction,
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: "OBJECT",
-          properties: {
-            isCorrect: { type: "BOOLEAN" },
-            explanation: { type: "STRING" }
-          },
-          required: ["isCorrect", "explanation"]
+      });
+    } catch (firstError) {
+      console.warn("Primary gemini-3.5-flash failed, trying fallback gemini-1.5-flash:", firstError);
+      response = await ai.models.generateContent({
+        model: "gemini-1.5-flash", // Fallback model
+        contents: [
+          prompt,
+          {
+            inlineData: {
+              data: base64Data,
+              mimeType: mimeType
+            }
+          }
+        ],
+        config: {
+          systemInstruction,
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "OBJECT",
+            properties: {
+              isCorrect: { type: "BOOLEAN" },
+              explanation: { type: "STRING" }
+            },
+            required: ["isCorrect", "explanation"]
+          }
         }
-      }
-    });
+      });
+    }
 
     const responseText = response.text || "{}";
     let result;
