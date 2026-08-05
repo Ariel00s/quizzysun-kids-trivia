@@ -29,6 +29,9 @@ interface MainMenuProps {
   onChangeAvatar?: (playerId: string, newAvatar: string) => void;
   onDeletePlayer?: (playerId: string) => void;
   onChangeGender?: (playerId: string, newGender: 'male' | 'female') => void;
+  cameraQuestEnabled: boolean;
+  onCameraQuestToggle: (enabled: boolean) => void;
+  onStartCameraQuest: (type: string) => void;
 }
 
 const PRESET_AVATARS = ['🦖', '🦁', '🦄', '🐼', '🐨', '🦊', '🐯', '🐸', '🚀', '⭐', '🌈', '🎨'];
@@ -239,11 +242,32 @@ export default function MainMenu({
   onSetActivePlayer,
   onChangeAvatar,
   onDeletePlayer,
-  onChangeGender
+  onChangeGender,
+  cameraQuestEnabled,
+  onCameraQuestToggle,
+  onStartCameraQuest
 }: MainMenuProps) {
   const [currentStep, setCurrentStep] = useState<'setup' | 'topics'>('setup');
   const [addingPlayer, setAddingPlayer] = useState<boolean>(false);
   const [showAvatarModal, setShowAvatarModal] = useState<boolean>(false);
+
+  const handleQuestPlay = (type: string) => {
+    if (!activePlayer) {
+      if (soundOn) {
+        try {
+          const warnText = lang === 'en' 
+            ? 'Please select or create Player 1 first!' 
+            : 'אנא בחרו או צרו שחקן ראשון תחילה!';
+          const utterance = new SpeechSynthesisUtterance(warnText);
+          utterance.lang = lang === 'he' ? 'he-IL' : 'en-US';
+          window.speechSynthesis.speak(utterance);
+        } catch (e) {}
+      }
+      alert(lang === 'en' ? 'Please select or create Player 1 first!' : 'אנא בחרו או צרו שחקן ראשון תחילה!');
+      return;
+    }
+    onStartCameraQuest(type);
+  };
 
   const handleCategoryPlay = (category: Category | 'All') => {
     if (!activePlayer) {
@@ -401,39 +425,68 @@ export default function MainMenu({
         {/* Main Categories Navigation Grid */}
         <div className="w-full text-center z-10 mt-1">
           <h3 className="font-headline-md text-[#FF7675] mb-3.5 drop-shadow-sm font-black text-sm sm:text-base md:text-lg uppercase tracking-wider">
-            {lang === 'en' ? 'CHOOSE A TOPIC TO PLAY' : 'בחרו נושא להתחלת המשחק'}
+            {cameraQuestEnabled
+              ? (lang === 'en' ? 'CHOOSE A QUEST TYPE TO PLAY' : 'בחרו סוג משימה להתחלת המשחק')
+              : (lang === 'en' ? 'CHOOSE A TOPIC TO PLAY' : 'בחרו נושא להתחלת המשחק')}
           </h3>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 w-full max-w-4xl mx-auto">
-            {([
-              { id: 'Geography', labelEn: 'Geography', labelHe: 'גאוגרפיה', emoji: '🌍', bgColor: 'bg-gradient-to-br from-[#74B9FF] to-[#0984E3] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(9,132,227,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(9,132,227,0.45)] hover:-translate-y-0.5' },
-              { id: 'Animals', labelEn: 'Animals', labelHe: 'בעלי חיים', emoji: '🦁', bgColor: 'bg-gradient-to-br from-[#FF9F43] to-[#EE5A24] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(238,90,36,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(238,90,36,0.45)] hover:-translate-y-0.5' },
-              { id: 'Math', labelEn: 'Math', labelHe: 'חשבון', emoji: '🔢', bgColor: 'bg-gradient-to-br from-[#55EFC4] to-[#00B894] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(0,184,148,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(0,184,148,0.45)] hover:-translate-y-0.5' },
-              { id: 'History', labelEn: 'History', labelHe: 'היסטוריה', emoji: '📜', bgColor: 'bg-gradient-to-br from-[#FF7675] to-[#D63031] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(214,48,49,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(214,48,49,0.45)] hover:-translate-y-0.5' },
-              { id: 'Science', labelEn: 'Science', labelHe: 'מדע', emoji: '🧪', bgColor: 'bg-gradient-to-br from-[#81ECEC] to-[#00CEC9] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(0,206,201,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(0,206,201,0.45)] hover:-translate-y-0.5' },
-              { id: 'Space', labelEn: 'Space', labelHe: 'חלל', emoji: '🚀', bgColor: 'bg-gradient-to-br from-[#A29BFE] to-[#6C5CE7] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(108,92,231,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(108,92,231,0.45)] hover:-translate-y-0.5' },
-              { id: 'Stories', labelEn: 'Stories & Tales', labelHe: 'סיפורים ואגדות', emoji: '🏰', bgColor: 'bg-gradient-to-br from-[#FF9FF3] to-[#F368E0] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(243,104,224,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(243,104,224,0.45)] hover:-translate-y-0.5' },
-              { id: 'GeneralKnowledge', labelEn: 'General Info', labelHe: 'ידע כללי', emoji: '💡', bgColor: 'bg-gradient-to-br from-[#FFC048] to-[#FF9F43] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(255,159,67,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(255,159,67,0.45)] hover:-translate-y-0.5' },
-            ] as const).map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => handleCategoryPlay(cat.id)}
-                className={`p-3.5 rounded-2xl border flex items-center justify-start sm:justify-center gap-3 font-black text-xs sm:text-sm md:text-base transition-all duration-150 transform hover:scale-102 hover:-translate-y-0.5 active:scale-98 active:translate-y-0 cursor-pointer ${cat.bgColor}`}
-              >
-                <span className="text-xl sm:text-2xl shrink-0">{cat.emoji}</span>
-                <span className="truncate">{lang === 'en' ? cat.labelEn : cat.labelHe}</span>
-              </button>
-            ))}
+          {cameraQuestEnabled ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 w-full max-w-4xl mx-auto">
+              {([
+                { id: 'color', labelEn: 'Colors', labelHe: 'צבעים', emoji: '🎨', bgColor: 'bg-gradient-to-br from-[#FF9F43] to-[#EE5A24] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(238,90,36,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(238,90,36,0.45)] hover:-translate-y-0.5' },
+                { id: 'expression', labelEn: 'Selfie Faces', labelHe: 'סלפי פרצופים', emoji: '😜', bgColor: 'bg-gradient-to-br from-[#FF9FF3] to-[#F368E0] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(243,104,224,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(243,104,224,0.45)] hover:-translate-y-0.5' },
+                { id: 'letter-number', labelEn: 'Letters & Numbers', labelHe: 'אותיות ומספרים', emoji: '🔢', bgColor: 'bg-gradient-to-br from-[#55EFC4] to-[#00B894] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(0,184,148,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(0,184,148,0.45)] hover:-translate-y-0.5' },
+                { id: 'object', labelEn: 'Household Objects', labelHe: 'חפצים בבית', emoji: '🧸', bgColor: 'bg-gradient-to-br from-[#A29BFE] to-[#6C5CE7] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(108,92,231,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(108,92,231,0.45)] hover:-translate-y-0.5' }
+              ] as const).map((qType) => (
+                <button
+                  key={qType.id}
+                  onClick={() => handleQuestPlay(qType.id)}
+                  className={`p-3.5 rounded-2xl border flex items-center justify-start sm:justify-center gap-3 font-black text-xs sm:text-sm md:text-base transition-all duration-150 transform hover:scale-102 hover:-translate-y-0.5 active:scale-98 active:translate-y-0 cursor-pointer ${qType.bgColor}`}
+                >
+                  <span className="text-xl sm:text-2xl shrink-0">{qType.emoji}</span>
+                  <span className="truncate">{lang === 'en' ? qType.labelEn : qType.labelHe}</span>
+                </button>
+              ))}
 
-            {/* Quick Play combined directly as an attractive tile in the grid to save massive space */}
-            <button
-              onClick={() => handleCategoryPlay('All')}
-              className="col-span-2 sm:col-span-1 md:col-span-1 p-3.5 bg-gradient-to-br from-[#74B9FF] to-[#0984E3] text-white font-black text-xs sm:text-sm md:text-base border border-white/20 rounded-2xl shadow-[0_8px_16px_-4px_rgba(9,132,227,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(9,132,227,0.45)] hover:-translate-y-0.5 active:scale-98 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2 animate-pulse"
-            >
-              <span>🎮</span>
-              <span>{lang === 'en' ? 'Mixed (All)' : 'משחק מעורב'}</span>
-            </button>
-          </div>
+              <button
+                onClick={() => handleQuestPlay('All')}
+                className="col-span-2 sm:col-span-1 md:col-span-1 p-3.5 bg-gradient-to-br from-[#74B9FF] to-[#0984E3] text-white font-black text-xs sm:text-sm md:text-base border border-white/20 rounded-2xl shadow-[0_8px_16px_-4px_rgba(9,132,227,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(9,132,227,0.45)] hover:-translate-y-0.5 active:scale-98 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2 animate-pulse"
+              >
+                <span>📸</span>
+                <span>{lang === 'en' ? 'Mixed (All)' : 'הכל מעורב'}</span>
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 w-full max-w-4xl mx-auto">
+              {([
+                { id: 'Geography', labelEn: 'Geography', labelHe: 'גאוגרפיה', emoji: '🌍', bgColor: 'bg-gradient-to-br from-[#74B9FF] to-[#0984E3] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(9,132,227,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(9,132,227,0.45)] hover:-translate-y-0.5' },
+                { id: 'Animals', labelEn: 'Animals', labelHe: 'בעלי חיים', emoji: '🦁', bgColor: 'bg-gradient-to-br from-[#FF9F43] to-[#EE5A24] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(238,90,36,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(238,90,36,0.45)] hover:-translate-y-0.5' },
+                { id: 'Math', labelEn: 'Math', labelHe: 'חשבון', emoji: '🔢', bgColor: 'bg-gradient-to-br from-[#55EFC4] to-[#00B894] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(0,184,148,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(0,184,148,0.45)] hover:-translate-y-0.5' },
+                { id: 'History', labelEn: 'History', labelHe: 'היסטוריה', emoji: '📜', bgColor: 'bg-gradient-to-br from-[#FF7675] to-[#D63031] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(214,48,49,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(214,48,49,0.45)] hover:-translate-y-0.5' },
+                { id: 'Science', labelEn: 'Science', labelHe: 'מדע', emoji: '🧪', bgColor: 'bg-gradient-to-br from-[#81ECEC] to-[#00CEC9] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(0,206,201,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(0,206,201,0.45)] hover:-translate-y-0.5' },
+                { id: 'Space', labelEn: 'Space', labelHe: 'חלל', emoji: '🚀', bgColor: 'bg-gradient-to-br from-[#A29BFE] to-[#6C5CE7] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(108,92,231,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(108,92,231,0.45)] hover:-translate-y-0.5' },
+                { id: 'Stories', labelEn: 'Stories & Tales', labelHe: 'סיפורים ואגדות', emoji: '🏰', bgColor: 'bg-gradient-to-br from-[#FF9FF3] to-[#F368E0] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(243,104,224,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(243,104,224,0.45)] hover:-translate-y-0.5' },
+                { id: 'GeneralKnowledge', labelEn: 'General Info', labelHe: 'ידע כללי', emoji: '💡', bgColor: 'bg-gradient-to-br from-[#FFC048] to-[#FF9F43] text-white border border-white/20 shadow-[0_8px_16px_-4px_rgba(255,159,67,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(255,159,67,0.45)] hover:-translate-y-0.5' },
+              ] as const).map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => handleCategoryPlay(cat.id)}
+                  className={`p-3.5 rounded-2xl border flex items-center justify-start sm:justify-center gap-3 font-black text-xs sm:text-sm md:text-base transition-all duration-150 transform hover:scale-102 hover:-translate-y-0.5 active:scale-98 active:translate-y-0 cursor-pointer ${cat.bgColor}`}
+                >
+                  <span className="text-xl sm:text-2xl shrink-0">{cat.emoji}</span>
+                  <span className="truncate">{lang === 'en' ? cat.labelEn : cat.labelHe}</span>
+                </button>
+              ))}
+
+              <button
+                onClick={() => handleCategoryPlay('All')}
+                className="col-span-2 sm:col-span-1 md:col-span-1 p-3.5 bg-gradient-to-br from-[#74B9FF] to-[#0984E3] text-white font-black text-xs sm:text-sm md:text-base border border-white/20 rounded-2xl shadow-[0_8px_16px_-4px_rgba(9,132,227,0.3)] hover:shadow-[0_12px_20px_-4px_rgba(9,132,227,0.45)] hover:-translate-y-0.5 active:scale-98 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2 animate-pulse"
+              >
+                <span>🎮</span>
+                <span>{lang === 'en' ? 'Mixed (All)' : 'משחק מעורב'}</span>
+              </button>
+            </div>
+          )}
         </div>
 
   
@@ -524,10 +577,11 @@ export default function MainMenu({
               type="button"
               onClick={() => {
                 onVersusModeToggle(false);
+                onCameraQuestToggle(false);
                 setAddingPlayer(false);
               }}
-              className={`px-4 py-1.5 rounded-full font-black text-xs transition-all cursor-pointer flex items-center gap-1 ${
-                !versusEnabled
+              className={`px-3 py-1.5 rounded-full font-black text-xs transition-all cursor-pointer flex items-center gap-1 ${
+                !versusEnabled && !cameraQuestEnabled
                   ? 'bg-[#D2E3FC] text-[#0984E3] shadow-sm'
                   : 'text-slate-500 hover:text-slate-800'
               }`}
@@ -539,9 +593,10 @@ export default function MainMenu({
               type="button"
               onClick={() => {
                 onVersusModeToggle(true);
+                onCameraQuestToggle(false);
                 setAddingPlayer(false);
               }}
-              className={`px-4 py-1.5 rounded-full font-black text-xs transition-all cursor-pointer flex items-center gap-1 ${
+              className={`px-3 py-1.5 rounded-full font-black text-xs transition-all cursor-pointer flex items-center gap-1 ${
                 versusEnabled
                   ? 'bg-rose-200 text-rose-700 shadow-sm'
                   : 'text-slate-500 hover:text-slate-800'
@@ -549,6 +604,22 @@ export default function MainMenu({
             >
               <span>⚔️</span>
               <span>{lang === 'en' ? 'Versus' : 'דו-קרב'}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                onVersusModeToggle(false);
+                onCameraQuestToggle(true);
+                setAddingPlayer(false);
+              }}
+              className={`px-3 py-1.5 rounded-full font-black text-xs transition-all cursor-pointer flex items-center gap-1 ${
+                cameraQuestEnabled
+                  ? 'bg-amber-200 text-amber-700 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <span>📸</span>
+              <span>{lang === 'en' ? 'Camera' : 'ציד מצלמה'}</span>
             </button>
           </div>
         </div>

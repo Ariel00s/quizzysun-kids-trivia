@@ -103,6 +103,15 @@ export const BADGES: Badge[] = [
     descriptionHe: 'קיבלת 100% בחידון סיפורים ואגדות!',
     icon: '🏰',
     color: 'bg-pink-500 text-white border-pink-700'
+  },
+  {
+    id: 'camera-explorer',
+    titleEn: 'Camera Explorer',
+    titleHe: 'מגלה המצלמה',
+    descriptionEn: 'Completed a Camera Quest round with a perfect score!',
+    descriptionHe: 'השלמת סיבוב ציד מצלמה בציון מושלם!',
+    icon: '📸',
+    color: 'bg-rose-500 text-white border-rose-700'
   }
 ];
 

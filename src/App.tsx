@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Player, QuizState, Category, AgeGroup, Language } from './types';
 import { QUESTIONS, BADGES } from './questions';
+import { CAMERA_QUESTS } from './quests';
 import RegisterPlayer from './components/RegisterPlayer';
 import MainMenu from './components/MainMenu';
 import QuizView from './components/QuizView';
+import CameraQuestView from './components/CameraQuestView';
 import VictoryView from './components/VictoryView';
 import BadgeBook from './components/BadgeBook';
 import Leaderboard from './components/Leaderboard';
@@ -21,7 +23,7 @@ export default function App() {
   const [activePlayerId, setActivePlayerId] = useState<string | null>(null);
   const [lang, setLang] = useState<Language>('he');
   const [soundOn, setSoundOn] = useState(true);
-  const [screen, setScreen] = useState<'welcome' | 'register' | 'main-menu' | 'quiz' | 'victory' | 'badges' | 'leaderboard' | 'versus-quiz' | 'ai-hub'>('main-menu');
+  const [screen, setScreen] = useState<'welcome' | 'register' | 'main-menu' | 'quiz' | 'victory' | 'badges' | 'leaderboard' | 'versus-quiz' | 'ai-hub' | 'camera-quest'>('main-menu');
 
   // AI Creativity and Background Music States
   const [currentBgMusicUrl, setCurrentBgMusicUrl] = useState<string | null>(null);
@@ -36,6 +38,9 @@ export default function App() {
 
   // Versus Mode & Global settings
   const [versusEnabled, setVersusEnabled] = useState(false);
+  const [cameraQuestEnabled, setCameraQuestEnabled] = useState(false);
+  const [activeQuests, setActiveQuests] = useState<any[]>([]);
+  const [selectedQuestType, setSelectedQuestType] = useState<string>('All');
   const [versusOpponentId, setVersusOpponentId] = useState<string | null>(null);
   const [versusModeStyle, setVersusModeStyle] = useState<'time' | 'turn'>('time');
   const [versusTimeLimit, setVersusTimeLimit] = useState<number>(60);
@@ -445,6 +450,96 @@ export default function App() {
     setScreen('quiz');
   };
 
+  const handleStartCameraQuest = (questType: string) => {
+    const activePlayer = getActivePlayer();
+    if (!activePlayer) return;
+
+    setSelectedQuestType(questType);
+
+    // Filter quests by age group of active player
+    let pool = CAMERA_QUESTS.filter((q) => q.ageGroups.includes(activePlayer.ageGroup));
+    if (pool.length === 0) {
+      pool = CAMERA_QUESTS; // Fallback
+    }
+
+    // Filter by type if not 'All'
+    if (questType !== 'All') {
+      pool = pool.filter((q) => q.type === questType);
+    }
+
+    // Shuffle and pick 5 quests
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    const selectedQuests = shuffled.slice(0, 5);
+
+    setActiveQuests(selectedQuests);
+    
+    // Set a dummy QuizState so that the Victory page doesn't crash (which checks activeQuiz)
+    setActiveQuiz({
+      category: 'All',
+      questions: [],
+      currentQuestionIndex: 0,
+      score: 0,
+      answers: [],
+      isFinished: false
+    });
+
+    setScreen('camera-quest');
+  };
+
+  const handleFinishCameraQuest = (score: number) => {
+    const activePlayer = getActivePlayer();
+    if (!activePlayer) return;
+
+    setLastRoundScore(score);
+    const newlyEarnedBadges: string[] = [];
+    const updatedBadges = [...activePlayer.badges];
+
+    const addBadgeIfMissing = (badgeId: string) => {
+      if (!updatedBadges.includes(badgeId)) {
+        updatedBadges.push(badgeId);
+        newlyEarnedBadges.push(badgeId);
+      }
+    };
+
+    // First step badge
+    addBadgeIfMissing('first-step');
+
+    // If perfect score (all 5 quests verified correct), award "Camera Explorer" badge
+    if (score === 5) {
+      addBadgeIfMissing('camera-explorer');
+      addBadgeIfMissing('perfect-score');
+    }
+
+    const updatedGamesPlayed = activePlayer.gamesPlayed + 1;
+    if (updatedGamesPlayed >= 5) {
+      addBadgeIfMissing('halfway');
+    }
+
+    const updatedPlayers = players.map((p) => {
+      if (p.id === activePlayer.id) {
+        // Correct capture gives 50 XP, plus 100 XP for any newly earned badge
+        const addedXp = (score * 50) + (newlyEarnedBadges.length * 100);
+        const newXp = (p.xp || 0) + addedXp;
+        const newLevel = Math.floor(newXp / 250) + 1;
+
+        return {
+          ...p,
+          score: p.score + (score * 10) + (newlyEarnedBadges.length * 50),
+          gamesPlayed: updatedGamesPlayed,
+          badges: updatedBadges,
+          lastPlayed: new Date().toISOString(),
+          xp: newXp,
+          level: newLevel
+        };
+      }
+      return p;
+    });
+
+    savePlayers(updatedPlayers);
+    setUnlockedBadgesThisRound(newlyEarnedBadges);
+    setScreen('victory');
+  };
+
   const handleFinishQuiz = (score: number, answers: { questionId: string; selectedIndex: number; isCorrect: boolean }[]) => {
     const activePlayer = getActivePlayer();
     if (!activePlayer) return;
@@ -589,6 +684,9 @@ export default function App() {
               onSetActivePlayer={handleSelectActivePlayer}
               onDeletePlayer={handleDeletePlayer}
               onChangeGender={handleChangeGender}
+              cameraQuestEnabled={cameraQuestEnabled}
+              onCameraQuestToggle={setCameraQuestEnabled}
+              onStartCameraQuest={handleStartCameraQuest}
             />
           </motion.div>
         );
@@ -610,6 +708,29 @@ export default function App() {
               lang={lang}
               soundOn={soundOn}
               onFinish={handleFinishQuiz}
+              onExit={() => setScreen('main-menu')}
+              currentRound={currentSoloRound}
+            />
+          </motion.div>
+        );
+
+      case 'camera-quest':
+        if (!activePlayer) return null;
+        return (
+          <motion.div
+            key="camera-quest"
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -30, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 100, damping: 15 }}
+            className="w-full flex justify-center"
+          >
+            <CameraQuestView
+              activePlayer={activePlayer}
+              quests={activeQuests}
+              lang={lang}
+              soundOn={soundOn}
+              onFinish={handleFinishCameraQuest}
               onExit={() => setScreen('main-menu')}
               currentRound={currentSoloRound}
             />
@@ -661,13 +782,17 @@ export default function App() {
             <VictoryView
               activePlayer={activePlayer}
               score={lastRoundScore}
-              totalQuestions={activeQuiz.questions.length}
+              totalQuestions={cameraQuestEnabled ? activeQuests.length : (activeQuiz?.questions.length || 0)}
               unlockedBadgeIds={unlockedBadgesThisRound}
               lang={lang}
               onNextRound={() => {
                 const nextRound = currentSoloRound + 1;
                 setCurrentSoloRound(nextRound);
-                handleStartQuiz(activeQuiz.category, nextRound);
+                if (cameraQuestEnabled) {
+                  handleStartCameraQuest(selectedQuestType);
+                } else {
+                  handleStartQuiz(activeQuiz?.category || 'All', nextRound);
+                }
               }}
               onMainMenu={() => setScreen('main-menu')}
               currentRound={currentSoloRound}
