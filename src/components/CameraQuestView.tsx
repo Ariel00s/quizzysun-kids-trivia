@@ -116,8 +116,9 @@ export default function CameraQuestView({
       const context = canvas.getContext('2d');
       
       if (context) {
-        canvas.width = 400;
-        canvas.height = 400;
+        // Reduced resolution for extremely fast base64 upload and Gemini verification
+        canvas.width = 256;
+        canvas.height = 256;
         
         // Mirror the image only if we are using the selfie front camera
         if (facingMode === 'user') {
@@ -127,7 +128,8 @@ export default function CameraQuestView({
         
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        // Compressed JPEG format (approx. 10-15KB)
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.55);
         setCapturedPhoto(dataUrl);
         stopCamera();
       }
