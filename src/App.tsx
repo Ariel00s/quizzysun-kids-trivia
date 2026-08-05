@@ -958,7 +958,7 @@ export default function App() {
       </header>
 
       {/* Main Container content view */}
-      <main className="flex-grow flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-margin-mobile py-2 md:py-4 overflow-hidden min-h-0">
+      <main className="flex-grow flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-3 sm:px-6 py-2 md:py-4 overflow-hidden min-h-0">
         {/* Kid-Friendly Integrated Console Frame */}
         <div className="w-full h-[580px] max-h-[calc(100dvh-110px)] bg-gradient-to-br from-[#F3E8FF]/95 via-white/98 to-[#E0F2FE]/95 backdrop-blur-md border-[6px] sm:border-[8px] border-[#74B9FF] rounded-[32px] p-3 sm:p-5 md:p-6 shadow-[0_8px_0_0_#74B9FF,0_15px_20px_-5px_rgba(0,0,0,0.08)] relative overflow-hidden flex flex-col min-h-0 z-10">
           
@@ -969,7 +969,7 @@ export default function App() {
           <div className="absolute bottom-1/4 left-10 text-2xl select-none opacity-20 pointer-events-none animate-bounce" style={{ animationDuration: '10s' }}>🎈</div>
           <div className="absolute bottom-10 right-12 text-3xl select-none opacity-30 pointer-events-none animate-pulse" style={{ animationDuration: '6s' }}>⭐</div>
           
-          <div className="w-full h-full flex flex-col flex-grow relative z-10 overflow-y-auto min-h-0 pr-1 scrollbar-none">
+          <div className="w-full h-full flex flex-col flex-grow relative z-10 overflow-y-auto overflow-x-hidden min-h-0 pr-1 scrollbar-none">
             <AnimatePresence mode="wait">
               {getRenderedScreen()}
             </AnimatePresence>
