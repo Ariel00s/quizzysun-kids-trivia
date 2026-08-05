@@ -162,4 +162,94 @@ app.post("/api/gemini/generate-music", async (req, res) => {
   }
 });
 
+// API Route: Verify Camera Quest Capture using Gemini Vision
+app.post("/api/gemini/verify-capture", async (req, res) => {
+  try {
+    const { image, questText, language, gender } = req.body;
+    if (!image) {
+      throw new Error("No image was provided.");
+    }
+    
+    const ai = getAIClient();
+
+    // Extract raw base64 data and mimeType
+    const matches = image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    let mimeType = "image/jpeg";
+    let base64Data = image;
+    
+    if (matches && matches.length === 3) {
+      mimeType = matches[1];
+      base64Data = matches[2];
+    }
+
+    const isHe = language === "he";
+    const isFemale = gender === "female";
+
+    // Precise instructions for Gemini
+    const systemInstruction = isHe
+      ? `אתה מורה דרך חברותי ומעודד לילדים במשחק מציאות רבודה. תפקידך לבחון את התמונה שצולמה על ידי הילד ולקבוע האם היא עונה על המשימה הבאה בהצלחה: "${questText}".
+הילד שמשחק הוא במין: ${isFemale ? "נקבה" : "זכר"}.
+עליך להחזיר תשובה במבנה JSON בלבד עם השדות הבאים:
+- "isCorrect": ערך בוליאני (true או false) המציין האם המשימה בוצעה בהצלחה בתמונה (למשל, האם אכן רואים את החפץ בצבע המבוקש, או את הפרצוף המתאים, או את המספר/אות).
+- "explanation": הסבר קצר (1-2 משפטים), ידידותי ומעודד בעברית המיועד ישירות לילד.
+חשוב מאוד: שים לב להגהה נכונה בעברית של המילים ולשייכות (זכר או נקבה)!
+מכיוון שהשחקן הוא ${isFemale ? "בת (נקבה)" : "בן (זכר)"}, עליך לפנות אליה/אליו בהתאם:
+- לנקבה (בת): השתמש בפעלים ובכינויים בלשון נקבה, כגון "צדקת!", "הצלחת!", "אלופה!", "מצאת!", "איזו חכמה את!".
+- לזכר (בן): השתמש בפעלים ובכינויים בלשון זכר, כגון "צדקת!", "הצלחת!", "אלוף!", "מצאת!", "איזה חכם אתה!".
+אל תפנה בשפה מעורבת, והקפד על פנייה נכונה ומכבדת.`
+      : `You are a friendly, encouraging guide for kids in a real-world camera game. Your job is to examine the photo taken by the kid and determine if they successfully completed the following quest: "${questText}".
+The kid's gender is ${isFemale ? "female" : "male"}.
+You must return a JSON response only, with these fields:
+- "isCorrect": boolean indicating if they successfully completed the quest (e.g. they captured the correct color, expression, or object).
+- "explanation": a short (1-2 sentences), encouraging, and kid-friendly explanation in English addressed directly to the child (e.g. "Awesome! You found a red apple!").`;
+
+    const prompt = `Quest: "${questText}"
+Please analyze the attached image and check if it successfully shows what is requested.
+Return a JSON object conforming to the instruction.`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash", // Excellent for vision and fast responses
+      contents: [
+        prompt,
+        {
+          inlineData: {
+            data: base64Data,
+            mimeType: mimeType
+          }
+        }
+      ],
+      config: {
+        systemInstruction,
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "OBJECT",
+          properties: {
+            isCorrect: { type: "BOOLEAN" },
+            explanation: { type: "STRING" }
+          },
+          required: ["isCorrect", "explanation"]
+        }
+      }
+    });
+
+    const responseText = response.text || "{}";
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error("JSON parsing error on Gemini response:", responseText);
+      const isCorrectMatch = responseText.match(/"isCorrect"\s*:\s*(true|false)/i);
+      const isCorrect = isCorrectMatch ? isCorrectMatch[1].toLowerCase() === "true" : false;
+      const explanationMatch = responseText.match(/"explanation"\s*:\s*"([^"]+)"/);
+      const explanation = explanationMatch ? explanationMatch[1] : (isHe ? "ניסיון יפה! נסה שוב!" : "Nice try! Let's try again!");
+      result = { isCorrect, explanation };
+    }
+
+    res.json(result);
+  } catch (error: any) {
+    console.error("Verify Capture API Error:", error);
+    res.status(500).json({ error: error.message || "An unexpected error occurred." });
+  }
+});
+
 export default app;
