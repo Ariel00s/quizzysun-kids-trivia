@@ -305,7 +305,7 @@ export default function CameraQuestView({
             </h2>
 
             {/* Live Camera Feed or Image Preview */}
-            <div className="relative w-full max-w-[340px] aspect-square rounded-[32px] border-4 border-[#74B9FF] bg-slate-100 overflow-hidden shadow-chunky-blue flex items-center justify-center">
+            <div className="relative w-full max-w-[260px] xs:max-w-[300px] sm:max-w-[340px] aspect-square rounded-[32px] border-4 border-[#74B9FF] bg-slate-100 overflow-hidden shadow-chunky-blue flex items-center justify-center">
               {capturedPhoto ? (
                 <img
                   src={capturedPhoto}

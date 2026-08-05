@@ -167,3 +167,22 @@
   }
 }
 
+/* Enforce adaptive viewport fit and prevent general window scrollbars */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #E8F0FE;
+}
+
+/* Hide scrollbars visually while maintaining scrolling functionality */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+

@@ -16,6 +16,12 @@ interface VersusQuizViewProps {
   onExit: () => void;
 }
 
+const getOptionLetter = (index: number, lang: 'en' | 'he') => {
+  const englishLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
+  const hebrewLetters = ['א', 'ב', 'ג', 'ד', 'ה', 'ו'];
+  return lang === 'he' ? hebrewLetters[index] || '' : englishLetters[index] || '';
+};
+
 export default function VersusQuizView({
   player1,
   player2,
@@ -62,6 +68,7 @@ export default function VersusQuizView({
   // Sound/TTS Refs
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const speechTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Initialize question pools on mount
   useEffect(() => {
@@ -178,19 +185,39 @@ export default function VersusQuizView({
   // Narrate current question & options
   const narrateQuestion = () => {
     if (!soundOn || !currentQuestion || shuffledIndices.length === 0) return;
+    
+    if (speechTimeoutRef.current) {
+      clearTimeout(speechTimeoutRef.current);
+    }
+
     const isHe = lang === 'he';
     const questionText = isHe ? currentQuestion.questionHe : currentQuestion.questionEn;
     const options = isHe ? currentQuestion.optionsHe : currentQuestion.optionsEn;
 
-    let textToSpeak = questionText + ". ";
-    shuffledIndices.forEach((originalIdx, idx) => {
-      const opt = options[originalIdx];
-      textToSpeak += `${idx + 1}. ${opt}. `;
-    });
-
-    const utterance = speakText(textToSpeak, true);
+    // Speak question first
+    const utterance = speakText(questionText, true);
     if (utterance) {
       speechRef.current = utterance;
+      
+      // When question finishes, wait 2 seconds and speak options
+      utterance.onend = () => {
+        speechTimeoutRef.current = setTimeout(() => {
+          if (!soundOn || !currentQuestion || shuffledIndices.length === 0) return;
+          
+          let optionsText = "";
+          shuffledIndices.forEach((originalIdx, idx) => {
+            const opt = options[originalIdx];
+            optionsText += isHe 
+              ? `אפשרות ${getOptionLetter(idx, lang)}. ${opt}. ` 
+              : `Option ${getOptionLetter(idx, lang)}. ${opt}. `;
+          });
+          
+          const optionsUtterance = speakText(optionsText, true);
+          if (optionsUtterance) {
+            speechRef.current = optionsUtterance;
+          }
+        }, 2000);
+      };
     }
   };
 
@@ -211,6 +238,9 @@ export default function VersusQuizView({
       narrateQuestion();
     }
     return () => {
+      if (speechTimeoutRef.current) {
+        clearTimeout(speechTimeoutRef.current);
+      }
       window.speechSynthesis.cancel();
     };
   }, [shuffledIndices, turnStarted, activeTurn]);
@@ -685,7 +715,7 @@ export default function VersusQuizView({
                 >
                   <span className="font-bold flex items-center gap-3">
                     <span className="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 text-slate-500 text-xs flex items-center justify-center shrink-0">
-                      {idx + 1}
+                      {getOptionLetter(idx, lang)}
                     </span>
                     <span>{option}</span>
                   </span>

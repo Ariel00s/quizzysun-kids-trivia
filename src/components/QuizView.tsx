@@ -14,6 +14,12 @@ interface QuizViewProps {
   currentRound: number;
 }
 
+const getOptionLetter = (index: number, lang: 'en' | 'he') => {
+  const englishLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
+  const hebrewLetters = ['א', 'ב', 'ג', 'ד', 'ה', 'ו'];
+  return lang === 'he' ? hebrewLetters[index] || '' : englishLetters[index] || '';
+};
+
 export default function QuizView({
   activePlayer,
   questions,
@@ -109,7 +115,9 @@ export default function QuizView({
           let optionsText = "";
           shuffledIndices.forEach((originalIdx, index) => {
             const opt = options[originalIdx];
-            optionsText += `${index + 1}. ${opt}. `;
+            optionsText += isHe 
+              ? `אפשרות ${getOptionLetter(index, lang)}. ${opt}. ` 
+              : `Option ${getOptionLetter(index, lang)}. ${opt}. `;
           });
           
           const optionsUtterance = speakText(optionsText, true);
@@ -462,7 +470,7 @@ export default function QuizView({
                 >
                   {/* Option Index Bubble marker */}
                   <span className="w-8 h-8 rounded-full bg-white/20 border border-white/40 flex items-center justify-center font-bold text-sm select-none">
-                    {idx + 1}
+                    {getOptionLetter(idx, lang)}
                   </span>
                   <span className="flex-grow text-center font-bold">{option}</span>
                   <span className="w-8 shrink-0" /> {/* Spacer spacer */}
