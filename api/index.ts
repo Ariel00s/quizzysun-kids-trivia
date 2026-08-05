@@ -208,7 +208,7 @@ Please analyze the attached image and check if it successfully shows what is req
 Return a JSON object conforming to the instruction.`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash", // Excellent for vision and fast responses
+      model: "gemini-3.5-flash", // Excellent for vision and fast responses
       contents: [
         prompt,
         {
