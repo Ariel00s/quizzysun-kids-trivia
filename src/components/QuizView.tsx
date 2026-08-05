@@ -44,6 +44,7 @@ export default function QuizView({
 
   // Sound effects & speech synthesis refs
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const speechTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Unified speech utility with robust Hebrew voice fallback matching
   const speakText = (text: string, isRateSlower: boolean = false) => {
@@ -87,20 +88,36 @@ export default function QuizView({
   const narrateQuestion = () => {
     if (!soundOn || !currentQuestion || shuffledIndices.length === 0) return;
     
+    if (speechTimeoutRef.current) {
+      clearTimeout(speechTimeoutRef.current);
+    }
+
     const isHe = lang === 'he';
     const questionText = isHe ? currentQuestion.questionHe : currentQuestion.questionEn;
     const options = isHe ? currentQuestion.optionsHe : currentQuestion.optionsEn;
     
-    // Build narrated text with options in the shuffled order
-    let textToSpeak = questionText + ". ";
-    shuffledIndices.forEach((originalIdx, index) => {
-      const opt = options[originalIdx];
-      textToSpeak += `${index + 1}. ${opt}. `;
-    });
-    
-    const utterance = speakText(textToSpeak, true);
+    // Speak the question text
+    const utterance = speakText(questionText, true);
     if (utterance) {
       speechRef.current = utterance;
+      
+      // When question finishes speaking, wait 2 seconds and speak options
+      utterance.onend = () => {
+        speechTimeoutRef.current = setTimeout(() => {
+          if (!soundOn || !currentQuestion || shuffledIndices.length === 0) return;
+          
+          let optionsText = "";
+          shuffledIndices.forEach((originalIdx, index) => {
+            const opt = options[originalIdx];
+            optionsText += `${index + 1}. ${opt}. `;
+          });
+          
+          const optionsUtterance = speakText(optionsText, true);
+          if (optionsUtterance) {
+            speechRef.current = optionsUtterance;
+          }
+        }, 2000);
+      };
     }
   };
 
@@ -115,6 +132,11 @@ export default function QuizView({
 
   // Reset local states and shuffle indices on question change
   useEffect(() => {
+    if (speechTimeoutRef.current) {
+      clearTimeout(speechTimeoutRef.current);
+    }
+    window.speechSynthesis.cancel();
+
     setSelectedAnswerIndex(null);
     setHasAnswered(false);
     setShowFeedback(null);
@@ -139,6 +161,9 @@ export default function QuizView({
       narrateQuestion();
     }
     return () => {
+      if (speechTimeoutRef.current) {
+        clearTimeout(speechTimeoutRef.current);
+      }
       window.speechSynthesis.cancel();
     };
   }, [shuffledIndices, soundOn]);
